@@ -2,6 +2,8 @@
 
 Picar-X Python library for Raspberry Pi.
 
+FOR PERSONAL USE - Class PiCar Project
+
 ## Links
 
 - Docs: <https://docs.sunfounder.com/projects/picar-x-v20/en/latest/>
