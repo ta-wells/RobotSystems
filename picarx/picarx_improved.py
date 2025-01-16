@@ -12,6 +12,24 @@ except ImportError:
     from sim_robot_hat import Grayscale_Module, Ultrasonic, utils
 import time
 
+#Import stop motors on exit
+import atexit
+
+
+#Add logging functionality
+import logging
+from logdecorator import log_on_start, log_on_end, log_on_error
+
+logging_format = "%(asctime)s: %(message)s"
+logging.basicConfig(format=logging_format, level=logging.INFO,datefmt="%H:%M:%S")
+
+#Print all debug level logs to command line
+logging.getLogger().setLevel(logging.DEBUG)
+
+#Test logging
+logging.debug("Hello world")
+
+
 
 def constrain(x, min_val, max_val):
     '''
@@ -41,6 +59,7 @@ class Picarx(object):
     # grayscale_pins: 3 adc channels
     # ultrasonic_pins: trig, echo2
     # config: path of config file
+    @log_on_start(logging.DEBUG, "Initializing Picar")
     def __init__(self, 
                 servo_pins:list=['P0', 'P1', 'P2'], 
                 motor_pins:list=['D4', 'D5', 'P13', 'P12'],
@@ -117,8 +136,9 @@ class Picarx(object):
             direction = -1 * self.cali_dir_value[motor]
         speed = abs(speed)
         # print(f"direction: {direction}, speed: {speed}")
-        if speed != 0:
-            speed = int(speed /2 ) + 50
+        #I think this is the speed scaling, commenting this out
+        # if speed != 0:
+        #     speed = int(speed /2 ) + 50
         speed = speed - self.cali_speed_value[motor]
         if direction < 0:
             self.motor_direction_pins[motor].high()
@@ -157,6 +177,7 @@ class Picarx(object):
         self.dir_servo_pin.angle(value)
 
     def set_dir_servo_angle(self, value):
+        #Set the required steering angle for the servo
         self.dir_current_angle = constrain(value, self.DIR_MIN, self.DIR_MAX)
         angle_value  = self.dir_current_angle + self.dir_cali_val
         self.dir_servo_pin.angle(angle_value)
@@ -190,6 +211,8 @@ class Picarx(object):
             if abs_current_angle > self.DIR_MAX:
                 abs_current_angle = self.DIR_MAX
             power_scale = (100 - abs_current_angle) / 100.0 
+           
+            
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, -1*speed)
                 self.set_motor_speed(2, speed * power_scale)
@@ -201,18 +224,29 @@ class Picarx(object):
             self.set_motor_speed(2, speed)  
 
     def forward(self, speed):
+        #Find the current angle 
         current_angle = self.dir_current_angle
+        #If we are not driving straight
         if current_angle != 0:
             abs_current_angle = abs(current_angle)
+            
+            #If we are past the max angle, set to the max angle
             if abs_current_angle > self.DIR_MAX:
                 abs_current_angle = self.DIR_MAX
+            
+            
+            #Set power scale, this probably needs to be removed
             power_scale = (100 - abs_current_angle) / 100.0
+            
+            #Logic for turning left or right
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, 1*speed * power_scale)
                 self.set_motor_speed(2, -speed) 
             else:
                 self.set_motor_speed(1, speed)
                 self.set_motor_speed(2, -1*speed * power_scale)
+        
+        #If we are driving straight. Why this is negative? dont know
         else:
             self.set_motor_speed(1, speed)
             self.set_motor_speed(2, -1*speed)                  
@@ -270,3 +304,6 @@ if __name__ == "__main__":
     px.forward(50)
     time.sleep(1)
     px.stop()
+    
+    #This should probably be in a for loop? exit functionality
+    atexit.register(px.stop)
