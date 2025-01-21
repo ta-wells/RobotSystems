@@ -302,12 +302,42 @@ class Picarx(object):
         self.set_cam_tilt_angle(0)
         self.set_cam_pan_angle(0)
 
+
+    
+
+
 if __name__ == "__main__":
+    
     px = Picarx()
-    px.forward(50)
-    px.set_dir_servo_angle(20)
-    time.sleep(1)
-    px.stop()
+
+
+
+    def parallel_park():
+        #Function for parallel parking
+        
+        
+        px.forward(50)
+        time.sleep(.5)
+        px.stop()
+
+        px.set_dir_servo_angle(20)
+        time.sleep(.25)
+        px.backward(50)
+        time.sleep(.25)
+        px.stop()
+
+        px.set_dir_servo_angle(0)
+        time.sleep(.25)
+        px.backward(50)
+        time.sleep(.25)
+        px.stop()
+
+
+
+    
+    parallel_park()
+    
+    
     
     #This should probably be in a for loop? exit functionality
     atexit.register(px.stop)
