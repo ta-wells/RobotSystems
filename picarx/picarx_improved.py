@@ -318,7 +318,7 @@ if __name__ == "__main__":
         px.set_dir_servo_angle(0)
         time.sleep(.25)
         px.forward(50)
-        time.sleep(2)
+        time.sleep(3)
         px.stop()
 
         px.set_dir_servo_angle(20)
