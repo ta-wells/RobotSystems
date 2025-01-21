@@ -214,7 +214,7 @@ class Picarx(object):
              
            
             power_scale = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))-.11/2)
-            power_scale_2 = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tand(math.radians(abs_current_angle))+.11/2)
+            power_scale_2 = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))+.11/2)
 
 
             if (current_angle / abs_current_angle) > 0:
