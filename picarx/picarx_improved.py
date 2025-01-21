@@ -356,7 +356,8 @@ if __name__ == "__main__":
 
 
     #parallel_park(px)
-    drive(px,1,60,5,2)
+    drive(px,1,60,10,2)
+    drive(px,-1,40,-30,2)
     
     
     
