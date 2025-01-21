@@ -316,20 +316,21 @@ if __name__ == "__main__":
         #Function for parallel parking
         
         px.set_dir_servo_angle(0)
+        time.sleep(.25)
         px.forward(50)
-        time.sleep(1)
+        time.sleep(2)
         px.stop()
 
         px.set_dir_servo_angle(20)
         time.sleep(.25)
         px.backward(50)
-        time.sleep(.5)
+        time.sleep(2)
         px.stop()
 
         px.set_dir_servo_angle(-20)
         time.sleep(.25)
         px.backward(50)
-        time.sleep(.5)
+        time.sleep(2)
         px.stop()
 
 
