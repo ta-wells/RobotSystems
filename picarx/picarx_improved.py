@@ -304,6 +304,47 @@ class Picarx(object):
 
 
     
+def parallel_park(px):
+        #Function for parallel parking
+        
+        #Go forward
+        px.set_dir_servo_angle(0)
+        time.sleep(.25)
+        px.forward(50)
+        time.sleep(2.8)
+        px.stop()
+
+        #Turn and go back
+        px.set_dir_servo_angle(20)
+        time.sleep(.25)
+        px.backward(50)
+        time.sleep(2)
+        px.stop()
+
+        #turn again and go back
+        px.set_dir_servo_angle(-20)
+        time.sleep(.25)
+        px.backward(50)
+        time.sleep(2)
+        px.stop()
+
+def drive(px,dir=1,speed=50,angle = 0,timer = 0):
+    #Set drive direction
+
+    #Angle from -30 to 30
+    #direction 1 is forward, -1 is backward
+
+    px.set_dir_servo_angle(angle)
+    time.sleep(.2)
+
+    if dir == 1:
+        px.forward(speed)
+        time.sleep(timer)
+        px.stop()
+    else:
+        px.backward(speed)
+        time.sleep(timer)
+        px.stop()
 
 
 if __name__ == "__main__":
@@ -311,32 +352,8 @@ if __name__ == "__main__":
     px = Picarx()
 
 
-
-    def parallel_park():
-        #Function for parallel parking
-        
-        px.set_dir_servo_angle(0)
-        time.sleep(.25)
-        px.forward(50)
-        time.sleep(3)
-        px.stop()
-
-        px.set_dir_servo_angle(20)
-        time.sleep(.25)
-        px.backward(50)
-        time.sleep(2)
-        px.stop()
-
-        px.set_dir_servo_angle(-20)
-        time.sleep(.25)
-        px.backward(50)
-        time.sleep(2)
-        px.stop()
-
-
-
-    
-    parallel_park()
+    #parallel_park(px)
+    drive(px,1,30,10,1.5)
     
     
     
