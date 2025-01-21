@@ -362,7 +362,9 @@ def three_point_turn(px,dir=1):
         drive(px,1,50,30,1.5)
 
     elif dir == -1:
-        pass
+        drive(px,1,50,-30,1.5)
+        drive(px,-1,50,30,1.5)
+        drive(px,1,50,-30,1.5)
 
     else:
         pass
@@ -375,16 +377,24 @@ if __name__ == "__main__":
     
     px = Picarx()
 
-
+    atexit.register(px.stop)
     #parallel_park(px)
     
     
     #drive(px,1,60,10,2)
     #drive(px,-1,40,-30,2)
 
-    three_point_turn(px,1)
+    #three_point_turn(px,1)
     
     
+    #Set up while loop
+    while (True):
+        keyboard = input("Please enter one lowercase key")
+
+        if keyboard == "c":
+            #break while loop
+            logging.debug("Broke loop")
+            break
+        #Ask for keyboard input
     
-    #This should probably be in a for loop? exit functionality
-    atexit.register(px.stop)
+    
