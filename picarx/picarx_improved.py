@@ -214,15 +214,15 @@ class Picarx(object):
              
            
             power_scale = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))-.11/2)
-            power_scale_2 = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))+.11/2)
+            power_scale_2 = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tand(math.radians(abs_current_angle))+.11/2)
 
 
             if (current_angle / abs_current_angle) > 0:
-                self.set_motor_speed(1, -1*speed*power_scale_2)
-                self.set_motor_speed(2, speed * power_scale)
+                self.set_motor_speed(1, -1*speed*power_scale)
+                self.set_motor_speed(2, speed * power_scale_2)
             else:
                 self.set_motor_speed(1, -1*speed * power_scale)
-                self.set_motor_speed(2, speed*power_scale_2 )
+                self.set_motor_speed(2, speed*power_scale )
         else:
             self.set_motor_speed(1, -1*speed)
             self.set_motor_speed(2, speed)  
@@ -356,7 +356,7 @@ if __name__ == "__main__":
 
 
     #parallel_park(px)
-    drive(px,1,30,10,1.5)
+    drive(px,1,60,20,2)
     
     
     
