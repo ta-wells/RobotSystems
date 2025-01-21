@@ -350,14 +350,39 @@ def drive(px,dir=1,speed=50,angle = 0,timer = 0):
         px.stop()
 
 
+def three_point_turn(px,dir=1):
+    #dir: 1 is left -1 is right
+    
+    #forward and left, backward and right, forward and left
+
+    if dir == 1:
+        
+        drive(px,1,50,30,1.5)
+        drive(px,-1,50,-30,1.5)
+        drive(px,1,50,30,1.5)
+
+    elif dir == -1:
+        pass
+
+    else:
+        pass
+        #Add log message here
+
+    
+    
+
 if __name__ == "__main__":
     
     px = Picarx()
 
 
     #parallel_park(px)
-    drive(px,1,60,10,2)
-    drive(px,-1,40,-30,2)
+    
+    
+    #drive(px,1,60,10,2)
+    #drive(px,-1,40,-30,2)
+
+    three_point_turn(px,1)
     
     
     
