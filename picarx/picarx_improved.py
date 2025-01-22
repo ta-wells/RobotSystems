@@ -389,7 +389,9 @@ if __name__ == "__main__":
     
     #Set up while loop
     while (True):
-        keyboard = input("Please enter one lowercase key")
+        #Ask for keyboard input
+        print("Reminder: c for break, k for 3-point, f for forward, b for back, p for parallel park.")
+        keyboard = input("Please enter one lowercase key: ")
 
         if keyboard == "c":
             #break while loop
@@ -399,6 +401,25 @@ if __name__ == "__main__":
             logging.debug("K-turning...")
             three_point_turn(px)
             logging.debug("K-turning done")
-        #Ask for keyboard input
+
+        elif keyboard =="f":
+            logging.debug("Driving forward...")
+            drive(px,1,70,0,1.5)
+            logging.debug("Driving forward done")
+
+        elif keyboard == "b":
+            logging.debug("Driving backward...")
+            drive(px,-1,70,0,1.5)
+            logging.debug("Driving backward done")
+
+        elif keyboard == "p":
+            logging.debug("Parallel parking...")
+            parallel_park
+            logging.debug("Parallel parking done")
+
+        else:
+            print("Please read the directions next time")
+
+        
     
     
