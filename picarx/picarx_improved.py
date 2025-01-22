@@ -357,14 +357,14 @@ def three_point_turn(px,dir=1):
 
     if dir == 1:
         
-        drive(px,1,75,25,1.5)
-        drive(px,-1,75,-25,1.5)
-        drive(px,1,75,25,1.5)
+        drive(px,1,60,22,1.5)
+        drive(px,-1,60,-22,1.5)
+        drive(px,1,60,22,1.5)
 
     elif dir == -1:
-        drive(px,1,75,-25,1.5)
-        drive(px,-1,75,25,1.5)
-        drive(px,1,75,-25,1.5)
+        drive(px,1,60,-22,1.5)
+        drive(px,-1,60,22,1.5)
+        drive(px,1,60,-22,1.5)
 
     else:
         pass
