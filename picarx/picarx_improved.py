@@ -397,7 +397,7 @@ if __name__ == "__main__":
             break
         elif keyboard == "k":
             logging.debug("K-turning...")
-            three_point_turn()
+            three_point_turn(px)
             logging.debug("K-turning done")
         #Ask for keyboard input
     
