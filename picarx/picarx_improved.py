@@ -414,7 +414,7 @@ if __name__ == "__main__":
 
         elif keyboard == "p":
             logging.debug("Parallel parking...")
-            parallel_park
+            parallel_park()
             logging.debug("Parallel parking done")
 
         else:
