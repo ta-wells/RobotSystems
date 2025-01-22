@@ -357,14 +357,14 @@ def three_point_turn(px,dir=1):
 
     if dir == 1:
         
-        drive(px,1,50,30,1.5)
-        drive(px,-1,50,-30,1.5)
-        drive(px,1,50,30,1.5)
+        drive(px,1,75,25,1.5)
+        drive(px,-1,75,-25,1.5)
+        drive(px,1,75,25,1.5)
 
     elif dir == -1:
-        drive(px,1,50,-30,1.5)
-        drive(px,-1,50,30,1.5)
-        drive(px,1,50,-30,1.5)
+        drive(px,1,75,-25,1.5)
+        drive(px,-1,75,25,1.5)
+        drive(px,1,75,-25,1.5)
 
     else:
         pass
@@ -395,6 +395,10 @@ if __name__ == "__main__":
             #break while loop
             logging.debug("Broke loop")
             break
+        elif keyboard == "k":
+            logging.debug("K-turning...")
+            three_point_turn()
+            logging.debug("K-turning done")
         #Ask for keyboard input
     
     
