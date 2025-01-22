@@ -314,7 +314,7 @@ def parallel_park(px):
         px.set_dir_servo_angle(0)
         time.sleep(.25)
         px.forward(50)
-        time.sleep(2.8)
+        time.sleep(2.5)
         px.stop()
 
         #Turn and go back
