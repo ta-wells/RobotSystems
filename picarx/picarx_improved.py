@@ -1,6 +1,9 @@
 
 
 import os
+
+
+
 try:
     from robot_hat import Pin, ADC, PWM, Servo, fileDB
     from robot_hat import Grayscale_Module, Ultrasonic, utils
@@ -386,9 +389,14 @@ if __name__ == "__main__":
 
     #three_point_turn(px,1)
     
-    
+    #Set up sensor class
+    sn = Sensor()
+
     #Set up while loop
     while (True):
+        
+
+
         #Ask for keyboard input
         print("Reminder: c for break, k for 3-point, f for forward, b for back, p for parallel park.")
         keyboard = input("Please enter one lowercase key: ")
@@ -416,6 +424,9 @@ if __name__ == "__main__":
             logging.debug("Parallel parking...")
             parallel_park(px)
             logging.debug("Parallel parking done")
+
+        elif keyboard =="r":
+            sn.read()
 
         else:
             print("Please read the directions next time")
