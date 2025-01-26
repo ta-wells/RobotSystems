@@ -227,7 +227,7 @@ class Picarx(object):
                 self.set_motor_speed(2, speed * power_scale_2)
             else:
                 self.set_motor_speed(1, 1*speed * power_scale)
-                self.set_motor_speed(2, speed*power_scale )
+                self.set_motor_speed(2, -speed*power_scale )
         else:
             self.set_motor_speed(1, -1*speed)
             self.set_motor_speed(2, speed)  
@@ -254,10 +254,10 @@ class Picarx(object):
             #Logic for turning left or right
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, 1*speed * power_scale_2)
-                self.set_motor_speed(2, -speed*power_scale) 
+                self.set_motor_speed(2, -speed) 
             else:
-                self.set_motor_speed(1, speed*power_scale)
-                self.set_motor_speed(2, 1*speed * power_scale_2)
+                self.set_motor_speed(1, speed)
+                self.set_motor_speed(2, -1*speed * power_scale_2)
         
         #If we are driving straight. Why this is negative? dont know
         else:
