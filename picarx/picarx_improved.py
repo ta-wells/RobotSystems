@@ -245,7 +245,7 @@ class Picarx(object):
                 self.set_motor_speed(2, -1*(speed))
             else:
                 self.set_motor_speed(1, speed)
-                self.set_motor_speed(2, -1*speed+10*left_speed)
+                self.set_motor_speed(2, -1*speed+20*left_speed)
             
         else:
             self.set_motor_speed(1, speed)
