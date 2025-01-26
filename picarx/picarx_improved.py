@@ -216,8 +216,10 @@ class Picarx(object):
                 abs_current_angle = self.DIR_MAX
              
            
-            power_scale = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))-.11/2)
-            power_scale_2 = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))+.11/2)
+            #power_scale = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))-.11/2)
+            #power_scale_2 = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))+.11/2)
+            power_scale = math.cos(current_angle)
+            power_scale_2 = -power_scale
 
 
             if (current_angle / abs_current_angle) > 0:
