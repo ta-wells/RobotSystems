@@ -57,9 +57,9 @@ class Interpreter():
 
         threshold = self.sensitivity #Set threshold based on sensitivity value
         
-        large_const = 1/400 #Constant used to scale large edge
-        med_const = 1/200 #Constant use for off by a medium amount
-        close_const = 1/10 #Constant used for very close
+        large_const = 1/4000 #Constant used to scale large edge
+        med_const = 1/2000 #Constant use for off by a medium amount
+        close_const = 1/1000 #Constant used for very close
 
         #TODO: Before moving on we need to adjust using the polarity setting 
 
