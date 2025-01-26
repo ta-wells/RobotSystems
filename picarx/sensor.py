@@ -96,7 +96,7 @@ class Control():
     def proportional_control(self,distance):
         #Lets implement a simple proportional controller for now
         err = self.target-distance
-        angle_set = self.target*self.kp
+        angle_set = err*self.kp
         #Saturate, though technically this is done for us
         if angle_set>25:
             angle_set=25
