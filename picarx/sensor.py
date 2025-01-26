@@ -63,26 +63,16 @@ class Interpreter():
 
         #TODO: Before moving on we need to adjust using the polarity setting 
 
-        if abs(edgeleft)>threshold or abs(edgeright)>threshold or abs(edgehigh)>threshold:
-            #If one edge is over the threshold, we know there is an edge somewhere
-            if abs(edgehigh)>threshold:
-                #If the extremes are over, we know that we are far off
-                Distance = edgehigh*large_const*-1 #built in lef tor right logic
+        
+        if abs(edgehigh)>threshold:
+            #If the extremes are over, we know that we are far off
+            Distance = edgehigh*large_const*-1 #built in lef tor right logic
                 
-            else:
-                #Otherwise we are close
-                if abs(edgeright)>threshold:
-                        Distance = edgeright*med_const #Built in direcitonality
-                else:
-                    Distance = edgeleft*med_const*-1
-                #Add logic for left or right
         else:
-            #Otherwise we are close to lined up
-            #Add logic for left or right based on average close reading maybe
-            
-            #Can try edge right or left here?
-            #Distance = edgehigh*close_const*-1 #Left or right logic built in
-            Distance = 0
+           
+            Distance = edgeleft*med_const*-1
+            #Add logic for left or right
+       
             
         return Distance
 
