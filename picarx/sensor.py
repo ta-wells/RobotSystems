@@ -79,7 +79,7 @@ class Interpreter():
 
 class Control():
 
-    def __init__(self,kp=150,target = 0,sat=25):
+    def __init__(self,kp=50,target = 0,sat=22):
         self.kp = kp
         self.sat = sat
         self.target = target
