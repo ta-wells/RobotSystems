@@ -226,7 +226,7 @@ class Picarx(object):
                 self.set_motor_speed(1, -1*speed*power_scale)
                 self.set_motor_speed(2, speed * power_scale_2)
             else:
-                self.set_motor_speed(1, -1*speed * power_scale)
+                self.set_motor_speed(1, 1*speed * power_scale)
                 self.set_motor_speed(2, speed*power_scale )
         else:
             self.set_motor_speed(1, -1*speed)
@@ -257,7 +257,7 @@ class Picarx(object):
                 self.set_motor_speed(2, -speed*power_scale) 
             else:
                 self.set_motor_speed(1, speed*power_scale)
-                self.set_motor_speed(2, -1*speed * power_scale_2)
+                self.set_motor_speed(2, 1*speed * power_scale_2)
         
         #If we are driving straight. Why this is negative? dont know
         else:
