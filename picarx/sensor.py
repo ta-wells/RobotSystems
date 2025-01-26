@@ -117,9 +117,9 @@ if __name__=='__main__':
     sn = Sensor()
     int = Interpreter()
     con = Control()
-    
+    time.sleep(1)
     while True:
-
+        
         #Read Grayscale module, comment out list for sim
         Reading = sn.read()
         #Reading = [2571,3085,3599]
