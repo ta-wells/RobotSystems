@@ -26,7 +26,7 @@ class Sensor():
     
 class Interpreter():
 
-    def __init__(self,sensitivity=50,polarity=1):
+    def __init__(self,sensitivity=100,polarity=1):
         self.sensitivity = sensitivity
         self.polarity = polarity
 
@@ -136,5 +136,5 @@ if __name__=='__main__':
         px.set_dir_servo_angle(Angle)
         px.forward(35)
 
-        time.sleep(.02)
+        time.sleep(.05)
 
