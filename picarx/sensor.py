@@ -48,7 +48,7 @@ class Interpreter():
         #Low numbers mean black, so negative readings mean the thing is to the left
 
         Left = Reading[0]
-        Middle = Reading[1]
+        Middle = Reading[1]-300
         Right = Reading[2]
 
         edgeleft = Left-Middle #Difference between left reading and middle
@@ -89,7 +89,7 @@ class Interpreter():
 
 class Control():
 
-    def __init__(self,kp=40,target = 0,sat=25):
+    def __init__(self,kp=50,target = 0,sat=25):
         self.kp = kp
         self.sat = sat
         self.target = target
