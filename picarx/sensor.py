@@ -111,10 +111,10 @@ if __name__=='__main__':
     Reading = sn.read()
     #Reading = [2571,3085,3599]
 
-    logging.Debug("Got Reading:")
+    logging.debug("Got Reading:")
     logging.debug(Reading) 
     Dist = int.process(Reading)
-    logging.Debug("Got Dist:")
+    logging.debug("Got Dist:")
     logging.debug(Dist) 
     time.sleep(.01)
 
