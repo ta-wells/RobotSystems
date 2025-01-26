@@ -134,7 +134,7 @@ if __name__=='__main__':
         logging.debug("Got Angle:")
         logging.debug(Angle)
         px.set_dir_servo_angle(Angle)
-        px.forward(35)
+        px.forward(25)
 
         time.sleep(.05)
 
