@@ -26,7 +26,7 @@ class Sensor():
     
 class Interpreter():
 
-    def __init__(self,sensitivity=100,polarity=1):
+    def __init__(self,sensitivity=50,polarity=1):
         self.sensitivity = sensitivity
         self.polarity = polarity
 
@@ -89,7 +89,7 @@ class Interpreter():
 
 class Control():
 
-    def __init__(self,kp=60,target = 0,sat=25):
+    def __init__(self,kp=100,target = 0,sat=25):
         self.kp = kp
         self.sat = sat
         self.target = target
