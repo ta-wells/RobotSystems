@@ -57,8 +57,8 @@ class Interpreter():
 
         threshold = self.sensitivity #Set threshold based on sensitivity value
         
-        large_const = 1/4000 #Constant used to scale large edge
-        med_const = 1/2000 #Constant use for off by a medium amount
+        large_const = 1/2000 #Constant used to scale large edge
+        med_const = 1/1000 #Constant use for off by a medium amount
         close_const = 1/1000 #Constant used for very close
 
         #TODO: Before moving on we need to adjust using the polarity setting 
@@ -86,11 +86,17 @@ class Interpreter():
         return Distance
 
 
-    def control(self,Distance,kp=.1,target = 0,sat=25):
+class Control():
 
+    def __init__(self,kp=.1,target = 0,sat=25):
+        self.kp = kp
+        self.sat = sat
+        self.target = target
+    
+    def proportional_control(self,distance):
         #Lets implement a simple proportional controller for now
-        err = target-Distance
-        angle_set = target*kp
+        err = self.target-distance
+        angle_set = self.target*self.kp
         #Saturate, though technically this is done for us
         if angle_set>25:
             angle_set=25
@@ -109,6 +115,7 @@ if __name__=='__main__':
 
     sn = Sensor()
     int = Interpreter()
+    con = Control()
     
     while True:
 
@@ -121,5 +128,12 @@ if __name__=='__main__':
         Dist = int.process(Reading)
         logging.debug("Got Dist:")
         logging.debug(Dist) 
-        time.sleep(1)
+
+        Angle = con.proportional_control(Dist)
+        logging.debug("Got Angle:")
+        logging.debug(Angle)
+        px.set_dir_servo_angle(Angle)
+        px.forward(20)
+
+        time.sleep(.2)
 
