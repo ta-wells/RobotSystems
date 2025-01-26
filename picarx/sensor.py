@@ -47,7 +47,7 @@ class Interpreter():
 
         #Low numbers mean black, so negative readings mean the thing is to the left
 
-        Left = Reading[0]
+        Left = Reading[0]-50
         Middle = Reading[1]-100
         Right = Reading[2]
 
