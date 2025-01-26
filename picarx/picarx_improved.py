@@ -233,15 +233,19 @@ class Picarx(object):
             self.set_motor_speed(2, speed)  
 
     def forward(self, speed):
-        #Credit to Sean for help with this code
+        
         #Find the current angle 
         current_angle = self.dir_current_angle
+        left_speed = math.cos(math.radians(current_angle))
+        right_speed = math.cos(math.radians(-current_angle))
         if current_angle != 0:
+            if current_angle > 0:
             # Calculate left and right motor speeds using Ackerman steering
-            left_speed = speed + 100*math.cos(math.radians(current_angle))
-            right_speed = speed + 100*math.cos(math.radians(-current_angle))
-            self.set_motor_speed(1, left_speed)
-            self.set_motor_speed(2, right_speed)
+                self.set_motor_speed(1, speed)
+                self.set_motor_speed(2, -1*(speed-10*right_speed))
+            else:
+                self.set_motor_speed(1, speed+left_speed)
+                self.set_motor_speed(2, -1*speed)
             
         else:
             self.set_motor_speed(1, speed)
