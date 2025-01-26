@@ -79,7 +79,7 @@ class Interpreter():
 
 class Control():
 
-    def __init__(self,kp=50,target = 0,sat=22):
+    def __init__(self,kp=60,target = 0,sat=25):
         self.kp = kp
         self.sat = sat
         self.target = target
@@ -124,7 +124,7 @@ if __name__=='__main__':
         logging.debug("Got Angle:")
         logging.debug(Angle)
         px.set_dir_servo_angle(Angle)
-        px.forward(35)
+        px.forward(25)
 
         time.sleep(.05)
 
