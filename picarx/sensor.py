@@ -106,15 +106,16 @@ if __name__=='__main__':
     sn = Sensor()
     int = Interpreter()
     
-    #Read Grayscale module, comment out list for sim
-    
-    Reading = sn.read()
-    #Reading = [2571,3085,3599]
+    while True:
 
-    logging.debug("Got Reading:")
-    logging.debug(Reading) 
-    Dist = int.process(Reading)
-    logging.debug("Got Dist:")
-    logging.debug(Dist) 
-    time.sleep(.01)
+        #Read Grayscale module, comment out list for sim
+        Reading = sn.read()
+        #Reading = [2571,3085,3599]
+
+        logging.debug("Got Reading:")
+        logging.debug(Reading) 
+        Dist = int.process(Reading)
+        logging.debug("Got Dist:")
+        logging.debug(Dist) 
+        time.sleep(.01)
 
