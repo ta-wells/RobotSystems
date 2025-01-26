@@ -233,36 +233,19 @@ class Picarx(object):
             self.set_motor_speed(2, speed)  
 
     def forward(self, speed):
+        #Credit to Sean for help with this code
         #Find the current angle 
         current_angle = self.dir_current_angle
-        #If we are not driving straight
         if current_angle != 0:
-            abs_current_angle = abs(current_angle)
+            # Calculate left and right motor speeds using Ackerman steering
+            left_speed = speed * math.cos(math.radians(current_angle))
+            right_speed = speed * math.cos(math.radians(-current_angle))
+            self.set_motor_speed(1, left_speed)
+            self.set_motor_speed(2, right_speed)
             
-            #If we are past the max angle, set to the max angle
-            if abs_current_angle > self.DIR_MAX:
-                abs_current_angle = self.DIR_MAX
-            
-            
-            #Set power scale based on ackermann steering, may need to be changed
-            #power_scale = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))-.11/2)
-            #power_scale_2 = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))+.11/2)
-            #power_scale = (100 - abs_current_angle) / 100.0
-            power_scale = math.cos(math.radians(abs_current_angle))
-            power_scale_2 = power_scale
-            
-            #Logic for turning left or right
-            if (current_angle / abs_current_angle) > 0:
-                self.set_motor_speed(1, 1*speed)
-                self.set_motor_speed(2, -speed*power_scale) 
-            else:
-                self.set_motor_speed(1, speed*power_scale)
-                self.set_motor_speed(2, -1*speed)
-        
-        #If we are driving straight. Why this is negative? dont know
         else:
             self.set_motor_speed(1, speed)
-            self.set_motor_speed(2, -1*speed)                  
+            self.set_motor_speed(2, speed)       
 
     def stop(self):
         '''
