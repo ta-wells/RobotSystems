@@ -238,8 +238,8 @@ class Picarx(object):
         current_angle = self.dir_current_angle
         if current_angle != 0:
             # Calculate left and right motor speeds using Ackerman steering
-            left_speed = speed * math.cos(math.radians(current_angle))
-            right_speed = speed * math.cos(math.radians(-current_angle))
+            left_speed = speed * math.cos(math.radians(-current_angle))
+            right_speed = speed * math.cos(math.radians(current_angle))
             self.set_motor_speed(1, left_speed)
             self.set_motor_speed(2, right_speed)
             
