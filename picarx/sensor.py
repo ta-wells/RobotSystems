@@ -26,7 +26,7 @@ class Sensor():
     
 class Interpreter():
 
-    def __init__(self,sensitivity=400,polarity=1):
+    def __init__(self,sensitivity=100,polarity=1):
         self.sensitivity = sensitivity
         self.polarity = polarity
 
