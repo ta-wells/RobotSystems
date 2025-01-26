@@ -26,7 +26,7 @@ class Sensor():
     
 class Interpreter():
 
-    def __init__(self,sensitivity=1,polarity=1):
+    def __init__(self,sensitivity=500,polarity=1):
         self.sensitivity = sensitivity
         self.polarity = polarity
 
@@ -45,6 +45,8 @@ class Interpreter():
 
         #Positive values should be to the left
 
+        #Low numbers mean black, so negative readings mean the thing is to the left
+
         Left = Reading[0]
         Middle = Reading[1]
         Right = Reading[2]
@@ -55,9 +57,9 @@ class Interpreter():
 
         threshold = self.sensitivity #Set threshold based on sensitivity value
         
-        large_const = 1/4000 #Constant used to scale large edge
-        med_const = 1/2000 #Constant use for off by a medium amount
-        close_const = 1/100 #Constant used for very close
+        large_const = 1/400 #Constant used to scale large edge
+        med_const = 1/200 #Constant use for off by a medium amount
+        close_const = 1/10 #Constant used for very close
 
         #TODO: Before moving on we need to adjust using the polarity setting 
 
@@ -65,19 +67,21 @@ class Interpreter():
             #If one edge is over the threshold, we know there is an edge somewhere
             if abs(edgehigh)>threshold:
                 #If the extremes are over, we know that we are far off
-                Distance = self.sensitivity*edgehigh*large_const #built in lef tor right logic
+                Distance = edgehigh*large_const*-1 #built in lef tor right logic
                 
             else:
                 #Otherwise we are close
-                if edgeright<threshold:
-                    Distance = self.sensitivity*edgeright*med_const
+                if abs(edgeright)>threshold:
+                        Distance = edgeright*med_const #Built in direcitonality
                 else:
-                    Distance = self.sensitivity*edgeleft*med_const*1
+                    Distance = edgeleft*med_const*-1
                 #Add logic for left or right
         else:
             #Otherwise we are close to lined up
             #Add logic for left or right based on average close reading maybe
-            Distance = self.sensitivity*edgeleft*close_const #Left or right logic built in
+            
+            #Can try edge right or left here?
+            Distance = edgehigh*close_const*-1 #Left or right logic built in
             
         return Distance
 
@@ -117,5 +121,5 @@ if __name__=='__main__':
         Dist = int.process(Reading)
         logging.debug("Got Dist:")
         logging.debug(Dist) 
-        time.sleep(.5)
+        time.sleep(1)
 
