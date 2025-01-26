@@ -2,6 +2,8 @@
 import logging
 from logdecorator import log_on_start, log_on_end, log_on_error
 from picarx_improved import Picarx
+import atexit
+import time
 
 logging.getLogger().setLevel(logging.DEBUG)
 
@@ -24,7 +26,7 @@ class Sensor():
     
 class Interpreter():
 
-    def __init__(self,sensitivity=1000,polarity=1):
+    def __init__(self,sensitivity=1,polarity=1):
         self.sensitivity = sensitivity
         self.polarity = polarity
 
@@ -39,6 +41,10 @@ class Interpreter():
         #Might need to calibrate this first, we will see
 
         #Start by finding edges, directionality may need to be changed later
+
+
+        #Positive values should be to the left
+
         Left = Reading[0]
         Middle = Reading[1]
         Right = Reading[2]
@@ -49,36 +55,66 @@ class Interpreter():
 
         threshold = self.sensitivity #Set threshold based on sensitivity value
         
+        large_const = 1/4000 #Constant used to scale large edge
+        med_const = 1/2000 #Constant use for off by a medium amount
+        close_const = 1/100 #Constant used for very close
+
         #TODO: Before moving on we need to adjust using the polarity setting 
 
         if abs(edgeleft)>threshold or abs(edgeright)>threshold or abs(edgehigh)>threshold:
             #If one edge is over the threshold, we know there is an edge somewhere
             if abs(edgehigh)>threshold:
                 #If the extremes are over, we know that we are far off
-                Distance = 1000
-                #Add logic for left or right
+                Distance = self.sensitivity*edgehigh*large_const #built in lef tor right logic
+                
             else:
                 #Otherwise we are close
-                Distance = 10
+                if edgeright<threshold:
+                    Distance = self.sensitivity*edgeright*med_const
+                else:
+                    Distance = self.sensitivity*edgeleft*med_const*1
                 #Add logic for left or right
         else:
             #Otherwise we are close to lined up
             #Add logic for left or right based on average close reading maybe
-            pass
+            Distance = self.sensitivity*edgeleft*close_const #Left or right logic built in
+            
+        return Distance
+
+
+    def control(self,Distance,kp=.1,target = 0,sat=25):
+
+        #Lets implement a simple proportional controller for now
+        err = target-Distance
+        angle_set = target*kp
+        #Saturate, though technically this is done for us
+        if angle_set>25:
+            angle_set=25
+        if angle_set <-25:
+            angle_set = -25
+
+        return angle_set
 
 
 
 
 if __name__=='__main__':
 
+    atexit.register(px.stop)
+
+
     sn = Sensor()
     int = Interpreter()
     
     #Read Grayscale module, comment out list for sim
     
-    #Reading = sn.read()
-    Reading = [2571,3085,3599]
+    Reading = sn.read()
+    #Reading = [2571,3085,3599]
 
-
+    logging.Debug("Got Reading:")
     logging.debug(Reading) 
-    int.process(Reading)
+    Dist = int.process(Reading)
+    logging.Debug("Got Dist:")
+    logging.debug(Dist) 
+    time.sleep(.01)
+

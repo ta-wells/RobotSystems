@@ -384,13 +384,6 @@ if __name__ == "__main__":
     #parallel_park(px)
     
     
-    #drive(px,1,60,10,2)
-    #drive(px,-1,40,-30,2)
-
-    #three_point_turn(px,1)
-    
-    #Set up sensor class
-    sn = Sensor()
 
     #Set up while loop
     while (True):
@@ -424,9 +417,6 @@ if __name__ == "__main__":
             logging.debug("Parallel parking...")
             parallel_park(px)
             logging.debug("Parallel parking done")
-
-        elif keyboard =="r":
-            sn.read()
 
         else:
             print("Please read the directions next time")
