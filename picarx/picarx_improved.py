@@ -245,9 +245,11 @@ class Picarx(object):
             
             
             #Set power scale based on ackermann steering, may need to be changed
-            power_scale = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))-.11/2)
-            power_scale_2 = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))+.11/2)
+            #power_scale = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))-.11/2)
+            #power_scale_2 = math.tan(math.radians(abs_current_angle))/.095*(.095/math.tan(math.radians(abs_current_angle))+.11/2)
             #power_scale = (100 - abs_current_angle) / 100.0
+            power_scale = math.cos(current_angle)
+            power_scale_2 = -power_scale
             
             #Logic for turning left or right
             if (current_angle / abs_current_angle) > 0:
