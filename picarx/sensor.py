@@ -26,7 +26,7 @@ class Sensor():
     
 class Interpreter():
 
-    def __init__(self,sensitivity=500,polarity=1):
+    def __init__(self,sensitivity=400,polarity=1):
         self.sensitivity = sensitivity
         self.polarity = polarity
 
@@ -58,7 +58,7 @@ class Interpreter():
         threshold = self.sensitivity #Set threshold based on sensitivity value
         
         large_const = 1/2000 #Constant used to scale large edge
-        med_const = 1/1000 #Constant use for off by a medium amount
+        med_const = 1/2000 #Constant use for off by a medium amount
         close_const = 1/1000 #Constant used for very close
 
         #TODO: Before moving on we need to adjust using the polarity setting 
@@ -81,14 +81,15 @@ class Interpreter():
             #Add logic for left or right based on average close reading maybe
             
             #Can try edge right or left here?
-            Distance = edgehigh*close_const*-1 #Left or right logic built in
+            #Distance = edgehigh*close_const*-1 #Left or right logic built in
+            Distance = 0
             
         return Distance
 
 
 class Control():
 
-    def __init__(self,kp=20,target = 0,sat=25):
+    def __init__(self,kp=40,target = 0,sat=25):
         self.kp = kp
         self.sat = sat
         self.target = target
@@ -135,5 +136,5 @@ if __name__=='__main__':
         px.set_dir_servo_angle(Angle)
         px.forward(25)
 
-        time.sleep(.2)
+        time.sleep(.1)
 
