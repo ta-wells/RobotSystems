@@ -48,7 +48,7 @@ class Interpreter():
         #Low numbers mean black, so negative readings mean the thing is to the left
 
         Left = Reading[0]
-        Middle = Reading[1]-300
+        Middle = Reading[1]-100
         Right = Reading[2]
 
         edgeleft = Left-Middle #Difference between left reading and middle
@@ -134,7 +134,7 @@ if __name__=='__main__':
         logging.debug("Got Angle:")
         logging.debug(Angle)
         px.set_dir_servo_angle(Angle)
-        px.forward(25)
+        px.forward(30)
 
-        time.sleep(.1)
+        time.sleep(.05)
 
