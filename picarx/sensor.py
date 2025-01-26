@@ -117,5 +117,5 @@ if __name__=='__main__':
         Dist = int.process(Reading)
         logging.debug("Got Dist:")
         logging.debug(Dist) 
-        time.sleep(.01)
+        time.sleep(.5)
 
