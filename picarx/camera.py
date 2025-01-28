@@ -26,11 +26,9 @@ class Camera():
 
     def get_image(self):
         #Get an image from the Picam
-        frame = cam.capture_array()
-        height, width, _ = frame.shape
-        middle = (int(width / 2), int(height / 2))
+        rgb = cam.capture_array("main")
         logging.debug("Got Image:")
-        return frame 
+        return rgb 
      
 
 
