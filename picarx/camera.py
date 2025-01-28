@@ -3,7 +3,7 @@ from logdecorator import log_on_start, log_on_end, log_on_error
 from picarx_improved import Picarx
 import atexit
 
-from picamera2 import Picamera2, MappedArray
+from picamera2 import Picamera2, MappedArray,Preview
 import time
 import cv2
 
@@ -13,8 +13,12 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 px = Picarx()
 cam = Picamera2()
-time.sleep(.5)
+picam2.start_preview(Preview.QTGL)
+config = picam2.create_preview_configuration(main={"size": (1280, 960)})
+picam2.configure(config)
 cam.start()
+
+
 
 class Camera():
     """
