@@ -13,9 +13,11 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 px = Picarx()
 cam = Picamera2()
-config = cam.create_preview_configuration(main={"size": (1280, 960)})
-cam.configure(config)
+camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
+cam.configure(camera_config)
+cam.start_preview(Preview.QTGL)
 cam.start()
+time.sleep(2)
 
 
 
@@ -29,9 +31,9 @@ class Camera():
 
     def get_image(self):
         #Get an image from the Picam
-        rgb = cam.capture_array("main")
-        logging.debug("Got Image:")
-        return rgb 
+        cam.capture_file("test.jpg")
+        logging.debug("Got Image")
+        #return none 
      
 
 
