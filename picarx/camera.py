@@ -4,7 +4,7 @@ from picarx_improved import Picarx
 import atexit
 
 from picamera.array import PiRGBArray
-from picamera import PiCamera
+from picamera2 import PiCamera
 import time
 import cv2
 
