@@ -13,7 +13,6 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 px = Picarx()
 cam = Picamera2()
-cam.start_preview(Preview.QTGL)
 config = cam.create_preview_configuration(main={"size": (1280, 960)})
 cam.configure(config)
 cam.start()
