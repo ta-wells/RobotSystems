@@ -3,8 +3,7 @@ from logdecorator import log_on_start, log_on_end, log_on_error
 from picarx_improved import Picarx
 import atexit
 
-from picamera.array import PiRGBArray
-from picamera2 import PiCamera
+from picamera2 import Picamera2, MappedArray
 import time
 import cv2
 
@@ -12,25 +11,26 @@ import cv2
 logging.getLogger().setLevel(logging.DEBUG)
 
 
-#Code from https://pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
-camera = PiCamera()
-rawCapture = PiRGBArray(camera)
-time.sleep(.1)
 px = Picarx()
-
+cam = Picamera2()
+time.sleep(.5)
+cam.start()
 
 class Camera():
-     """
+    """
     Camera class for line following
     """
-     def __init__(self):
+    def __init__(self):
         pass
-     
-     def get_image(self):
-         #Get an image from the Picam
-         camera.capture(rawCapture, format="bgr")
-         logging.debug("Got Image:")
-         return rawCapture.array
+
+
+    def get_image(self):
+        #Get an image from the Picam
+        frame = cam.capture_array()
+        height, width, _ = frame.shape
+        middle = (int(width / 2), int(height / 2))
+        logging.debug("Got Image:")
+        return frame 
      
 
 
