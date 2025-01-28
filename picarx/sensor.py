@@ -123,8 +123,10 @@ if __name__=='__main__':
         Angle = con.proportional_control(Dist)
         logging.debug("Got Angle:")
         logging.debug(Angle)
+        
+        #TODO: Put these back in when following a line
         px.set_dir_servo_angle(Angle)
-        px.forward(30)
+        px.forward(40)
 
         time.sleep(.05)
 

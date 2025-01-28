@@ -234,6 +234,7 @@ class Picarx(object):
 
     def forward(self, speed):
         
+        #Note: The offsets are uneven because for some reason my robot decided to be Jaylen Brown and can't go left
         #Find the current angle 
         current_angle = self.dir_current_angle
         left_speed = math.cos(math.radians(current_angle))
