@@ -13,7 +13,7 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 px = Picarx()
 cam = Picamera2()
-camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
+camera_config = cam.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
 cam.configure(camera_config)
 cam.start_preview(Preview.QTGL)
 cam.start()
