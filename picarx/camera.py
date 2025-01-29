@@ -67,4 +67,5 @@ if __name__=='__main__':
     while True:
         last,current = cam.take_photo()
         cam.process_photo(last,current)
+        time.sleep(1)
 
