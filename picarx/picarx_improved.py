@@ -27,10 +27,10 @@ logging_format = "%(asctime)s: %(message)s"
 logging.basicConfig(format=logging_format, level=logging.INFO,datefmt="%H:%M:%S")
 
 #Print all debug level logs to command line
-logging.getLogger().setLevel(logging.DEBUG)
+logging.getLogger().setLevel(logging.INFO)
 
 #Test logging
-logging.debug("Hello world")
+logging.info("Hello world")
 
 import math
 
@@ -63,7 +63,7 @@ class Picarx(object):
     # grayscale_pins: 3 adc channels
     # ultrasonic_pins: trig, echo2
     # config: path of config file
-    @log_on_start(logging.DEBUG, "Initializing Picar")
+    @log_on_start(logging.info, "Initializing Picar")
     def __init__(self, 
                 servo_pins:list=['P0', 'P1', 'P2'], 
                 motor_pins:list=['D4', 'D5', 'P13', 'P12'],
@@ -388,27 +388,27 @@ if __name__ == "__main__":
 
         if keyboard == "c":
             #break while loop
-            logging.debug("Broke loop")
+            logging.info("Broke loop")
             break
         elif keyboard == "k":
-            logging.debug("K-turning...")
+            logging.info("K-turning...")
             three_point_turn(px)
-            logging.debug("K-turning done")
+            logging.info("K-turning done")
 
         elif keyboard =="f":
-            logging.debug("Driving forward...")
+            logging.info("Driving forward...")
             drive(px,1,70,0,1.5)
-            logging.debug("Driving forward done")
+            logging.info("Driving forward done")
 
         elif keyboard == "b":
-            logging.debug("Driving backward...")
+            logging.info("Driving backward...")
             drive(px,-1,70,0,1.5)
-            logging.debug("Driving backward done")
+            logging.info("Driving backward done")
 
         elif keyboard == "p":
-            logging.debug("Parallel parking...")
+            logging.info("Parallel parking...")
             parallel_park(px)
-            logging.debug("Parallel parking done")
+            logging.info("Parallel parking done")
 
         else:
             print("Please read the directions next time")
