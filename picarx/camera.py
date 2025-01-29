@@ -3,21 +3,22 @@ from logdecorator import log_on_start, log_on_end, log_on_error
 from picarx_improved import Picarx
 import atexit
 
-from picamera2 import Picamera2, MappedArray,Preview
+from vilib import Vilib
+import os
+import numpy as np
+
 import time
 import cv2
 
+lastPhoto = ""
+currentPhoto = ""
+MSE_THRESHOLD = 20
 
 logging.getLogger().setLevel(logging.DEBUG)
 
-
+Vilib.camera_start(vflip=False,hflip=False)
 px = Picarx()
-cam = Picamera2()
-camera_config = cam.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores")
-cam.configure(camera_config)
-cam.start_preview(Preview.QTGL)
-cam.start()
-time.sleep(2)
+time.sleep(.5)
 
 
 
@@ -28,19 +29,41 @@ class Camera():
     def __init__(self):
         pass
 
+    def take_photo(self):
+        #Code from https://smist08.wordpress.com/tag/vilib/
+        _time = time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
+        name = 'photo_%s'%_time
+        username = os.getlogin()
+        path = f"/home/{username}/Pictures/"
+        Vilib.take_photo(name, path)
+        print('photo save as %s%s.jpg'%(path,name))
+        if lastPhoto != "":
+            os.remove(lastPhoto)
+        lastPhoto = currentPhoto
+        currentPhoto = path + name + ".jpg"
+        logging.debug("Got Photo")
+        return lastPhoto,currentPhoto
+    
+    def process_photo(last,current):
+        pass
+    
+    
+  
+        
 
-    def get_image(self):
-        #Get an image from the Picam
-        cam.capture_file("test.jpg")
-        logging.debug("Got Image")
-        #return none 
-     
 
 
 if __name__=='__main__':
 
     atexit.register(px.stop)
-    cm = Camera()
+    cam = Camera()
     
+    
+    last_turn = 0
+    last_angle = 0
+
+
     while True:
-        cm.get_image()
+        last,current = cam.take_photo()
+        cam.process_photo(last,current)
+
