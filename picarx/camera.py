@@ -15,7 +15,7 @@ currentPhoto = ""
 MSE_THRESHOLD = 20
 
 logging.getLogger().setLevel(logging.DEBUG)
-export OPENCV_LOG_LEVEL=OFF
+
 
 Vilib.camera_start(vflip=False,hflip=False)
 px = Picarx()
