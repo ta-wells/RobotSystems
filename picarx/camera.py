@@ -138,14 +138,14 @@ if __name__=='__main__':
 
     while True:
         current = cam.take_photo()
-        time.sleep(.2)
-        dist = cam.process_photo()
+        time.sleep(.1)
+        dist = -cam.process_photo()
         logging.info("Got Dist:")
         logging.info(dist) 
         angle = cam.proportional_control(dist)
         logging.info("Got Angle:")
         logging.info(angle)
         px.set_dir_servo_angle(angle)
-        px.forward(0)
+        px.forward(40)
         
 
