@@ -78,6 +78,7 @@ class Camera():
                 cy = int(M['m01']/M['m00'])
             except ZeroDivisionError:
                 cx = self.cx_last
+                cy = 0
 
             self.cx_last = cx
     
@@ -89,21 +90,23 @@ class Camera():
 
             logging.info(cx)
 
-            if cx >= 120:
+            if cx >= 100:
                 logging.info("Turn Left")
 
-            if cx < 120 and cx > 50:
+            if cx < 100 and cx > 70:
                 logging.info("On Track")
+                cx = 0
 
-            if cx <= 50:
+            if cx <= 70:
                 logging.info("Turn Right")
 
         else:
             cx = self.cx_last
             logging.info("I don't see the line")
+            dist = cx - const
 
 
-        dist = cx - const
+        
         return dist
     
   
