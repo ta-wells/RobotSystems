@@ -92,6 +92,7 @@ class Camera():
 
             if cx >= 100:
                 logging.info("Turn Left")
+                dist = cx - const
 
             if cx < 100 and cx > 70:
                 logging.info("On Track")
@@ -99,6 +100,7 @@ class Camera():
 
             if cx <= 70:
                 logging.info("Turn Right")
+                dist = cx - const
 
         else:
             cx = self.cx_last
