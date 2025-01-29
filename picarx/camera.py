@@ -146,6 +146,6 @@ if __name__=='__main__':
         logging.info("Got Angle:")
         logging.info(angle)
         px.set_dir_servo_angle(angle)
-        px.forward(40)
+        px.forward(0)
         
 
