@@ -46,13 +46,13 @@ class Camera():
         logging.info("Got Photo")
         return self.currentPhoto
     
-    def process_photo(current):
+    def process_photo(self):
         #Code from https://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
         
         
 
         # Convert to grayscale
-        crop_img = cv2.imread(current)
+        crop_img = cv2.imread(self.currentPhoto)
         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
         # Gaussian blur
         blur = cv2.GaussianBlur(gray,(5,5),0)
@@ -110,6 +110,6 @@ if __name__=='__main__':
 
     while True:
         current = cam.take_photo()
-        cam.process_photo(current)
+        cam.process_photo()
         time.sleep(1)
 
