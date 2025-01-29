@@ -10,11 +10,10 @@ import numpy as np
 import time
 import cv2
 
-lastPhoto = ""
-currentPhoto = ""
+
 MSE_THRESHOLD = 20
 
-logging.getLogger().setLevel(logging.WARN)
+logging.getLogger().setLevel(logging.INFO)
 
 
 Vilib.camera_start(vflip=False,hflip=False)
@@ -28,7 +27,8 @@ class Camera():
     Camera class for line following
     """
     def __init__(self):
-        pass
+        self.passlastPhoto = ""
+        self.currentPhoto = ""
 
     def take_photo(self):
         #Code from https://smist08.wordpress.com/tag/vilib/
@@ -38,12 +38,12 @@ class Camera():
         path = f"/home/{username}/Pictures/"
         Vilib.take_photo(name, path)
         print('photo save as %s%s.jpg'%(path,name))
-        if lastPhoto != "":
-            os.remove(lastPhoto)
-        lastPhoto = currentPhoto
-        currentPhoto = path + name + ".jpg"
-        logging.debug("Got Photo")
-        return lastPhoto,currentPhoto
+        if self.lastPhoto != "":
+            os.remove(self.lastPhoto)
+        self.lastPhoto = self.currentPhoto
+        self.currentPhoto = path + name + ".jpg"
+        logging.info("Got Photo")
+        return self.lastPhoto,self.currentPhoto
     
     def process_photo(last,current):
         pass
