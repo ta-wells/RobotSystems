@@ -46,7 +46,7 @@ class Camera():
         logging.info("Got Photo")
         return self.currentPhoto
     
-    def process_photo(current,im):
+    def process_photo(im,current):
         #Code from https://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
         
         # Convert to grayscale
