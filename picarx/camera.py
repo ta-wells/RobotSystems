@@ -66,6 +66,6 @@ if __name__=='__main__':
 
 
     while True:
-        one,two = cam.take_photo()
+        one = cam.take_photo()
         time.sleep(1)
 
