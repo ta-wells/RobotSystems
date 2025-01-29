@@ -14,7 +14,7 @@ lastPhoto = ""
 currentPhoto = ""
 MSE_THRESHOLD = 20
 
-logging.getLogger().setLevel(logging.DEBUG)
+logging.getLogger().setLevel(logging.WARN)
 
 
 Vilib.camera_start(vflip=False,hflip=False)
