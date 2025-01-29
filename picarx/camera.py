@@ -42,8 +42,6 @@ class Camera():
         path = f"/home/{username}/Pictures/"
         Vilib.take_photo(name, path)
         #print('photo save as %s%s.jpg'%(path,name))
-        if self.lastPhoto != "":
-            os.remove(self.lastPhoto)
         self.lastPhoto = self.currentPhoto
         self.currentPhoto = path + name + ".jpg"
         logging.info("Got Photo")
@@ -132,7 +130,7 @@ if __name__=='__main__':
 
     while True:
         current = cam.take_photo()
-        time.sleep(.5)
+        time.sleep(.25)
         dist = cam.process_photo()
         logging.info("Got Dist:")
         logging.info(dist) 
