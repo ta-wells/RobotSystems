@@ -102,7 +102,7 @@ if __name__=='__main__':
 
     atexit.register(px.stop)
     cam = Camera()
-    
+    px.set_cam_tilt_angle(-90)  
     
     last_turn = 0
     last_angle = 0
