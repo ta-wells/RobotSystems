@@ -132,7 +132,7 @@ if __name__=='__main__':
 
     while True:
         current = cam.take_photo()
-        time.sleep(.1)
+        time.sleep(.2)
         dist = cam.process_photo()
         logging.info("Got Dist:")
         logging.info(dist) 
