@@ -63,7 +63,7 @@ class Picarx(object):
     # grayscale_pins: 3 adc channels
     # ultrasonic_pins: trig, echo2
     # config: path of config file
-    @log_on_start(logging.info, "Initializing Picar")
+    @log_on_start(logging.INFO, "Initializing Picar")
     def __init__(self, 
                 servo_pins:list=['P0', 'P1', 'P2'], 
                 motor_pins:list=['D4', 'D5', 'P13', 'P12'],
