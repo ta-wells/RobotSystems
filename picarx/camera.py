@@ -27,7 +27,7 @@ class Camera():
     Camera class for line following
     """
     def __init__(self):
-        self.passlastPhoto = ""
+        self.lastPhoto = ""
         self.currentPhoto = ""
 
     def take_photo(self):
