@@ -46,11 +46,12 @@ class Camera():
         logging.info("Got Photo")
         return self.currentPhoto
     
-    def process_photo(im,current):
+    def process_photo(ret,frame):
         #Code from https://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
         
         # Convert to grayscale
-        gray = cv2.cvtColor(current, cv2.COLOR_BGR2GRAY)
+        crop_img = frame[60:120, 0:160]
+        gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
         # Gaussian blur
         blur = cv2.GaussianBlur(gray,(5,5),0)
         # Color thresholding
@@ -70,11 +71,11 @@ class Camera():
             cy = int(M['m01']/M['m00'])
 
     
-            cv2.line(current,(cx,0),(cx,720),(255,0,0),1)
-            cv2.line(current,(0,cy),(1280,cy),(255,0,0),1)
+            cv2.line(crop_img,(cx,0),(cx,720),(255,0,0),1)
+            cv2.line(crop_img,(0,cy),(1280,cy),(255,0,0),1)
 
 
-            cv2.drawContours(current, contours, -1, (0,255,0), 1)
+            cv2.drawContours(crop_img, contours, -1, (0,255,0), 1)
 
             if cx >= 120:
                 logging.info("Turn Left")
