@@ -43,7 +43,7 @@ class Camera():
         self.lastPhoto = self.currentPhoto
         self.currentPhoto = path + name + ".jpg"
         logging.info("Got Photo")
-        return self.lastPhoto,self.currentPhoto
+        return self.currentPhoto
     
     def process_photo(last,current):
         pass
@@ -65,7 +65,6 @@ if __name__=='__main__':
 
 
     while True:
-        last,current = cam.take_photo()
-        cam.process_photo(last,current)
+        one,two = cam.take_photo()
         time.sleep(1)
 
