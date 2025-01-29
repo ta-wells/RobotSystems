@@ -132,6 +132,7 @@ if __name__=='__main__':
 
     while True:
         current = cam.take_photo()
+        time.sleep(.1)
         dist = cam.process_photo()
         logging.info("Got Dist:")
         logging.info(dist) 
@@ -140,5 +141,5 @@ if __name__=='__main__':
         logging.info(angle)
         px.set_dir_servo_angle(angle)
         px.forward(40)
-        time.sleep(.1)
+        
 
