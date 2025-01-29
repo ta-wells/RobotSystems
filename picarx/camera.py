@@ -73,8 +73,11 @@ class Camera():
             c = max(contours, key=cv2.contourArea)
             M = cv2.moments(c)
 
-            cx = int(M['m10']/M['m00'])
-            cy = int(M['m01']/M['m00'])
+            try: 
+                cx = int(M['m10']/M['m00'])
+                cy = int(M['m01']/M['m00'])
+            except ZeroDivisionError:
+                cx = self.cx_last
 
             self.cx_last = cx
     
@@ -130,7 +133,7 @@ if __name__=='__main__':
 
     while True:
         current = cam.take_photo()
-        time.sleep(.25)
+        time.sleep(.1)
         dist = cam.process_photo()
         logging.info("Got Dist:")
         logging.info(dist) 
