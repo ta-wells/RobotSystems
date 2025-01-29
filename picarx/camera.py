@@ -38,7 +38,7 @@ class Camera():
 
         path = f"/home/{username}/Pictures/"
         Vilib.take_photo(name, path)
-        print('photo save as %s%s.jpg'%(path,name))
+        #print('photo save as %s%s.jpg'%(path,name))
         if self.lastPhoto != "":
             os.remove(self.lastPhoto)
         self.lastPhoto = self.currentPhoto
@@ -50,9 +50,9 @@ class Camera():
         #Code from https://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
         
         
-
         # Convert to grayscale
-        crop_img = cv2.imread(self.currentPhoto)
+        img = cv2.imread(self.currentPhoto)
+        crop_img = img[60:120, 0:160]
         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
         # Gaussian blur
         blur = cv2.GaussianBlur(gray,(5,5),0)
@@ -78,6 +78,8 @@ class Camera():
 
 
             cv2.drawContours(crop_img, contours, -1, (0,255,0), 1)
+
+            logging.info(cx)
 
             if cx >= 120:
                 logging.info("Turn Left")
