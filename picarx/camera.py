@@ -32,9 +32,10 @@ class Camera():
 
     def take_photo(self):
         #Code from https://smist08.wordpress.com/tag/vilib/
-        _time = time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
+        _time = strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time()))
         name = 'photo_%s'%_time
         username = os.getlogin()
+
         path = f"/home/{username}/Pictures/"
         Vilib.take_photo(name, path)
         print('photo save as %s%s.jpg'%(path,name))
