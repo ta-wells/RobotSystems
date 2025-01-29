@@ -29,6 +29,9 @@ class Camera():
     def __init__(self):
         self.lastPhoto = ""
         self.currentPhoto = ""
+        self.cx_last = 80
+        self.kp = 1/8
+        self.target = 0
 
     def take_photo(self):
         #Code from https://smist08.wordpress.com/tag/vilib/
@@ -47,6 +50,8 @@ class Camera():
         return self.currentPhoto
     
     def process_photo(self):
+        const = 80
+        
         #Code from https://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
         
         
@@ -64,6 +69,7 @@ class Camera():
 
         contours,hierarchy = cv2.findContours(thresh.copy(), 1, cv2.CHAIN_APPROX_NONE)
 
+        
         # Find the biggest contour (if detected)
         if len(contours) > 0:
             c = max(contours, key=cv2.contourArea)
@@ -72,6 +78,7 @@ class Camera():
             cx = int(M['m10']/M['m00'])
             cy = int(M['m01']/M['m00'])
 
+            self.cx_last = cx
     
             cv2.line(crop_img,(cx,0),(cx,720),(255,0,0),1)
             cv2.line(crop_img,(0,cy),(1280,cy),(255,0,0),1)
@@ -91,12 +98,25 @@ class Camera():
                 logging.info("Turn Right")
 
         else:
-
+            cx = self.cx_last
             logging.info("I don't see the line")
-    
+
+
+        dist = cx - const
+        return dist
     
   
-        
+    def proportional_control(self,distance):
+        #Lets implement a simple proportional controller for now
+        err = self.target-distance
+        angle_set = err*self.kp
+        #Saturate, though technically this is done for us
+        if angle_set>25:
+            angle_set=25
+        if angle_set <-25:
+            angle_set = -25
+
+        return angle_set
 
 
 
@@ -112,6 +132,13 @@ if __name__=='__main__':
 
     while True:
         current = cam.take_photo()
-        cam.process_photo()
-        time.sleep(1)
+        dist = cam.process_photo()
+        logging.info("Got Dist:")
+        logging.info(dist) 
+        angle = cam.proportional_control(dist)
+        logging.info("Got Angle:")
+        logging.info(angle)
+        px.set_dir_servo_angle(angle)
+        px.forward(40)
+        time.sleep(.1)
 
