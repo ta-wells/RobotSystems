@@ -49,6 +49,9 @@ class Camera():
     def process_photo(ret,frame):
         #Code from https://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
         
+        print(ret)
+        print(frame)
+
         # Convert to grayscale
         crop_img = frame[60:120, 0:160]
         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
