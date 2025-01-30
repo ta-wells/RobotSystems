@@ -55,7 +55,7 @@ class Camera():
         
         # Convert to grayscale
         img = cv2.imread(self.currentPhoto)
-        crop_img = img[0:120, 0:160]
+        crop_img = img[60:120, 0:160]
         gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
         # Gaussian blur
         blur = cv2.GaussianBlur(gray,(5,5),0)
