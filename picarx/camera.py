@@ -48,7 +48,10 @@ class Camera():
         return self.currentPhoto
     
     def process_photo(self):
+        #Calibration constants
         const = 120
+        upper_limit = 130
+        lower_limit = 50
         
         #Code from https://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
         
@@ -91,15 +94,15 @@ class Camera():
 
             logging.info(cx)
 
-            if cx >= 130:
+            if cx >= upper_limit:
                 logging.info("Turn Left")
                 dist = cx - const
 
-            if cx < 130 and cx > 50:
+            if cx < upper_limit and cx > lower_limit:
                 logging.info("On Track")
                 cx = 0
 
-            if cx <= 50:
+            if cx <= lower_limit:
                 logging.info("Turn Right")
                 dist = cx - const
 
