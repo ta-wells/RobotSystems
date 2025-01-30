@@ -30,7 +30,7 @@ class Camera():
         self.lastPhoto = ""
         self.currentPhoto = ""
         self.cx_last = 80
-        self.kp = 1/2
+        self.kp = 1/4
         self.target = 0
 
     def take_photo(self):
