@@ -118,6 +118,8 @@ class Interpreter():
                 #Add logic for left or right
 
             Distance_Bus_Class.write(Distance)
+            logging.info("Got Distance") 
+            logging.info(Distance)
             time.sleep(delay)
             
 
