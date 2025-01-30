@@ -205,9 +205,9 @@ if __name__=='__main__':
     Angle_bus_class = Bus_Structure()
 
     #Set up delay, this is a bit confusing
-    sn_delay = .05
-    int_delay = .05
-    con_delay = .05
+    sn_delay = .6
+    int_delay = .4
+    con_delay = .4
     #Code from lab manual
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         eSensor = executor.submit(sn.read_producer, Reading_bus_class,
