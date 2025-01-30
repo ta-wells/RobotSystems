@@ -209,7 +209,7 @@ if __name__=='__main__':
     int_delay = .4
     con_delay = .4
     #Code from lab manual
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         eSensor = executor.submit(sn.read_producer, Reading_bus_class,
             sn_delay)
         eInterpreter = executor.submit(int.process_consumer_producer,
