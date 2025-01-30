@@ -9,7 +9,7 @@ from bus_structure import Bus_Structure
 
 import concurrent.futures
 
-logging.getLogger().setLevel(logging.DEBUG)
+logging.getLogger().setLevel(logging.INFO)
 
 px = Picarx()
 
