@@ -48,7 +48,7 @@ class Camera():
         return self.currentPhoto
     
     def process_photo(self):
-        const = 80
+        const = 40
         
         #Code from https://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
         
