@@ -48,7 +48,7 @@ class Camera():
         return self.currentPhoto
     
     def process_photo(self):
-        const = 40
+        const = 180
         
         #Code from https://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
         
@@ -91,15 +91,15 @@ class Camera():
 
             logging.info(cx)
 
-            if cx >= 100:
+            if cx >= 240:
                 logging.info("Turn Left")
                 dist = cx - const
 
-            if cx < 100 and cx > 70:
+            if cx < 240 and cx > 60:
                 logging.info("On Track")
                 cx = 0
 
-            if cx <= 70:
+            if cx <= 60:
                 logging.info("Turn Right")
                 dist = cx - const
 
