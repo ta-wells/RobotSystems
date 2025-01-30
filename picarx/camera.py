@@ -10,6 +10,8 @@ import numpy as np
 import time
 import cv2
 
+from bus_structure import Bus_Structure
+
 
 MSE_THRESHOLD = 20
 
@@ -32,6 +34,7 @@ class Camera():
         self.cx_last = 80
         self.kp = 1/4
         self.target = 0
+        self.cam_bus = Bus_Structure()
 
     def take_photo(self):
         #Code from https://smist08.wordpress.com/tag/vilib/
@@ -128,6 +131,15 @@ class Camera():
 
         return angle_set
 
+    
+    def comsumer():
+        pass
+
+    def consumer_producer():
+        pass
+
+    def producer():
+        pass
 
 
 if __name__=='__main__':
