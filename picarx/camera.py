@@ -91,15 +91,15 @@ class Camera():
 
             logging.info(cx)
 
-            if cx >= 160:
+            if cx >= 130:
                 logging.info("Turn Left")
                 dist = cx - const
 
-            if cx < 160 and cx > 80:
+            if cx < 130 and cx > 50:
                 logging.info("On Track")
                 cx = 0
 
-            if cx <= 80:
+            if cx <= 50:
                 logging.info("Turn Right")
                 dist = cx - const
 
@@ -147,6 +147,6 @@ if __name__=='__main__':
         logging.info("Got Angle:")
         logging.info(angle)
         px.set_dir_servo_angle(angle)
-        px.forward(0)
+        px.forward(40)
         
 
