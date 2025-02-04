@@ -221,8 +221,10 @@ if __name__=='__main__':
     #eSensor.result()
     
 
-    # while True:
+    while True:
         
     #     px.set_dir_servo_angle(Angle)
     #     px.forward(40)
     #     time.sleep(.05)
+        print(eController.result)
+        time.sleep(.5)
