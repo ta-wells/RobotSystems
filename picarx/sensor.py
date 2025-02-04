@@ -165,6 +165,8 @@ class Control():
                 logging.info("Got Angle") 
                 logging.info(angle_set)
                 Angle_Bus_Class.write(angle_set)
+                px.set_dir_servo_angle(angle_set)
+                px.forward(40)
                 time.sleep(delay)
             except:
                 logging.debug("Not initialized --- skipping")
