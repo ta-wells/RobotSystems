@@ -168,7 +168,7 @@ class Control():
                 logging.info(angle_set)
                 Angle_Bus_Class.write(angle_set)
                 px.set_dir_servo_angle(angle_set)
-                px.forward(0)
+                px.forward(30)
                 time.sleep(delay)
             except:
                 logging.debug("Not initialized --- skipping")
@@ -214,9 +214,9 @@ if __name__=='__main__':
     int = Interpreter()
     con = Control()
 
-    bread = rr.Bus(sn.read(), "Grayscale reading Bus")
-    bprocess = rr.Bus(int.process(bread), "Data processing Bus")
-    bcontrol = rr.Bus(con.proportional_control(bprocess), "Control bus")
+    bread = rr.Bus(sn.read, "Grayscale reading Bus")
+    bprocess = rr.Bus(int.process, "Data processing Bus")
+    bcontrol = rr.Bus(con.proportional_control, "Control bus")
     bTerminate = rr.Bus(0, "Termination Bus")
 
 
