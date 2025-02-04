@@ -178,9 +178,9 @@ class Ultrasonic_Sensor():
     def __init__(self):
         pass
     def read(self):
-        logging.debug("Got Ultrasonic Reading")    
+        logging.info("Got Ultrasonic Reading")    
         reading = px.get_distance()
-        logging.debug(reading)    
+        logging.info(reading)    
         return reading
     
 
@@ -189,7 +189,7 @@ class Ultrasonic_Interpreter():
         pass
 
     def process(self,reading):
-        logging.debug("Processing Ultrasonic Reading") 
+        logging.info("Processing Ultrasonic Reading") 
         return reading
     
 class Ultrasonic_Controller():
@@ -197,10 +197,10 @@ class Ultrasonic_Controller():
         pass
 
     def control(self,data):
-        logging.debug("Controlling Ultrasonic Reading") 
+        logging.info("Controlling Ultrasonic Reading") 
         if data < 1000:
             #Stop robot
-            px.forward(0)
+            px.stop
         else:
             #Make robot go
             px.forward(0)
