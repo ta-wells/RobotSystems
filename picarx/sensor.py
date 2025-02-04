@@ -218,7 +218,7 @@ if __name__=='__main__':
             Reading_bus_class, Distance_bus_class,int_delay)
         eController = executor.submit(con.proportional_control_consumer_producer,
             Distance_bus_class,Angle_bus_class,con_delay)
-    eSensor.result()
+    #eSensor.result()
     
 
     # while True:
