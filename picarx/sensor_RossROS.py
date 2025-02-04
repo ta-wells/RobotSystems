@@ -300,7 +300,7 @@ ulinterpret = rr.ConsumerProducer(
     "Process Data")
 
 ulcontrol = rr.Consumer(
-    ucon.proportional_control,
+    ucon.control,
     buprocess,
     .5,
     bTerminate,
