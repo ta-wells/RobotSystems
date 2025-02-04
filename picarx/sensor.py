@@ -220,11 +220,3 @@ if __name__=='__main__':
             Distance_bus_class,Angle_bus_class,con_delay)
     #eSensor.result()
     
-
-    while True:
-        
-    #     px.set_dir_servo_angle(Angle)
-    #     px.forward(40)
-    #     time.sleep(.05)
-        print(eController.result)
-        time.sleep(.5)
