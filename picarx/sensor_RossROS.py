@@ -147,7 +147,7 @@ class Control():
             angle_set = -25
 
         px.set_dir_servo_angle(angle_set)
-        px.forward(40)
+        #px.forward(40)
         
 
     def proportional_control_consumer_producer(self,Distance_Bus_Class,Angle_Bus_Class,delay):
@@ -174,7 +174,37 @@ class Control():
                 logging.debug("Not initialized --- skipping")
 
 
+class Ultrasonic_Sensor():
+    def __init__(self):
+        pass
+    def read(self):
+        logging.debug("Got Ultrasonic Reading")    
+        reading = px.get_distance()
+        logging.debug(reading)    
+        return reading
+    
 
+class Ultrasonic_Interpreter():
+    def __init__(self):
+        pass
+
+    def process(self,reading):
+        logging.debug("Processing Ultrasonic Reading") 
+        return reading
+    
+class Ultrasonic_Controller():
+    def __init__(self):
+        pass
+
+    def control(self,data):
+        logging.debug("Controlling Ultrasonic Reading") 
+        if data < 1000:
+            #Stop robot
+            px.forward(0)
+        else:
+            #Make robot go
+            px.forward(0)
+        
 
 # if __name__=='__main__':
 
@@ -213,10 +243,16 @@ if __name__=='__main__':
     sn = Sensor()
     int = Interpreter()
     con = Control()
+    usn = Ultrasonic_Sensor()
+    uint = Ultrasonic_Interpreter()
+    ucon = Ultrasonic_Controller()
 
     bread = rr.Bus(sn.read(), "Grayscale reading Bus")
     bprocess = rr.Bus(int.process, "Data processing Bus")
     bcontrol = rr.Bus(con.proportional_control, "Control bus")
+    buread = rr.Bus(usn.read(), "Ultrasonic reading Bus")
+    buprocess = rr.Bus(uint.process, "US Data processing Bus")
+    bucontrol = rr.Bus(ucon.control, "US Control bus")
     bTerminate = rr.Bus(0, "Termination Bus")
 
 
@@ -224,7 +260,7 @@ if __name__=='__main__':
 read = rr.Producer(
     sn.read,  # function that will generate data
     bread,  # output data bus
-    0.05,  # delay between data generation cycles
+    0.5,  # delay between data generation cycles
     bTerminate,  # bus to watch for termination signal
     "Read grayscale")
 
@@ -233,19 +269,48 @@ interpret = rr.ConsumerProducer(
     int.process,  # function that will process data
     bread,  # input data buses
     bprocess,  # output data bus
-    0.05,  # delay between data control cycles
+    0.5,  # delay between data control cycles
     bTerminate,  # bus to watch for termination signal
     "Process Data")
 
 control = rr.Consumer(
     con.proportional_control,
     bprocess,
-    .05,
+    .5,
+    bTerminate,
+    "Control")
+
+
+
+
+ulread = rr.Producer(
+    usn.read,  # function that will generate data
+    buread,  # output data bus
+    0.5,  # delay between data generation cycles
+    bTerminate,  # bus to watch for termination signal
+    "Read grayscale")
+
+
+ulinterpret = rr.ConsumerProducer(
+    uint.process,  # function that will process data
+    buread,  # input data buses
+    buprocess,  # output data bus
+    0.5,  # delay between data control cycles
+    bTerminate,  # bus to watch for termination signal
+    "Process Data")
+
+ulcontrol = rr.Consumer(
+    ucon.proportional_control,
+    buprocess,
+    .5,
     bTerminate,
     "Control")
 
 producer_consumer_list = [read,
                           interpret,
-                          control]
+                          control,
+                          ulread,
+                          ulinterpret,
+                          ulcontrol]
 
 rr.runConcurrently(producer_consumer_list)
