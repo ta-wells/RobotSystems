@@ -203,7 +203,7 @@ class Ultrasonic_Controller():
             #Stop robot
             self.count = self.count+1
             if self.count >5:
-
+                logging.info("Stopping") 
                 px.forward(0)
             else:
                 px.forward(40)
