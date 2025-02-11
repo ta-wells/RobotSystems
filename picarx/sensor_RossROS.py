@@ -198,7 +198,7 @@ class Ultrasonic_Controller():
 
     def control(self,data):
         logging.info("Controlling Ultrasonic Reading") 
-        if data < 8:
+        if data < 10:
             #Stop robot
             px.forward(0)
         else:
