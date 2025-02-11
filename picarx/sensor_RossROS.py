@@ -199,7 +199,7 @@ class Ultrasonic_Controller():
 
     def control(self,data):
         logging.info("Controlling Ultrasonic Reading") 
-        if data < 10 and data>0:
+        if data < 15 and data>0:
             #Stop robot
             self.count = self.count+1
             if self.count >5:
