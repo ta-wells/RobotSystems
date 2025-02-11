@@ -260,7 +260,7 @@ if __name__=='__main__':
 read = rr.Producer(
     sn.read,  # function that will generate data
     bread,  # output data bus
-    0.5,  # delay between data generation cycles
+    0.05,  # delay between data generation cycles
     bTerminate,  # bus to watch for termination signal
     "Read grayscale")
 
@@ -269,14 +269,14 @@ interpret = rr.ConsumerProducer(
     int.process,  # function that will process data
     bread,  # input data buses
     bprocess,  # output data bus
-    0.5,  # delay between data control cycles
+    0.05,  # delay between data control cycles
     bTerminate,  # bus to watch for termination signal
     "Process Data")
 
 control = rr.Consumer(
     con.proportional_control,
     bprocess,
-    .5,
+    .05,
     bTerminate,
     "Control")
 
@@ -286,7 +286,7 @@ control = rr.Consumer(
 ulread = rr.Producer(
     usn.read,  # function that will generate data
     buread,  # output data bus
-    0.5,  # delay between data generation cycles
+    0.05,  # delay between data generation cycles
     bTerminate,  # bus to watch for termination signal
     "Read grayscale")
 
@@ -295,14 +295,14 @@ ulinterpret = rr.ConsumerProducer(
     uint.process,  # function that will process data
     buread,  # input data buses
     buprocess,  # output data bus
-    0.5,  # delay between data control cycles
+    0.05,  # delay between data control cycles
     bTerminate,  # bus to watch for termination signal
     "Process Data")
 
 ulcontrol = rr.Consumer(
     ucon.control,
     buprocess,
-    .5,
+    .05,
     bTerminate,
     "Control")
 
