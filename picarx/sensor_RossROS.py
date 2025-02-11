@@ -168,7 +168,7 @@ class Control():
                 logging.info(angle_set)
                 Angle_Bus_Class.write(angle_set)
                 px.set_dir_servo_angle(angle_set)
-                px.forward(30)
+                #px.forward(30)
                 time.sleep(delay)
             except:
                 logging.debug("Not initialized --- skipping")
@@ -186,6 +186,7 @@ class Ultrasonic_Sensor():
 
 class Ultrasonic_Interpreter():
     def __init__(self):
+        self.count = 0
         pass
 
     def process(self,reading):
@@ -200,10 +201,16 @@ class Ultrasonic_Controller():
         logging.info("Controlling Ultrasonic Reading") 
         if data < 10:
             #Stop robot
-            px.forward(0)
+            self.count = self.count+1
+            if self.count >5:
+
+                px.forward(0)
+            else:
+                px.forward(40)
         else:
             #Make robot go
-            px.forward(30)
+            px.forward(40)
+            self,count = 0
         
 
 # if __name__=='__main__':
@@ -286,7 +293,7 @@ control = rr.Consumer(
 ulread = rr.Producer(
     usn.read,  # function that will generate data
     buread,  # output data bus
-    0.2,  # delay between data generation cycles
+    0.1,  # delay between data generation cycles
     bTerminate,  # bus to watch for termination signal
     "Read grayscale")
 
@@ -295,14 +302,14 @@ ulinterpret = rr.ConsumerProducer(
     uint.process,  # function that will process data
     buread,  # input data buses
     buprocess,  # output data bus
-    0.2,  # delay between data control cycles
+    0.1,  # delay between data control cycles
     bTerminate,  # bus to watch for termination signal
     "Process Data")
 
 ulcontrol = rr.Consumer(
     ucon.control,
     buprocess,
-    .2,
+    .1,
     bTerminate,
     "Control")
 
