@@ -199,18 +199,21 @@ class Ultrasonic_Controller():
 
     def control(self,data):
         logging.info("Controlling Ultrasonic Reading") 
-        if data < 15 and data>0:
-            #Stop robot
-            self.count = self.count+1
-            if self.count >5:
-                logging.info("Stopping") 
-                px.forward(0)
+        try:
+            if data < 15 and data>0:
+                #Stop robot
+                self.count = self.count+1
+                if self.count >5:
+                    logging.info("Stopping") 
+                    px.forward(0)
+                else:
+                    px.forward(40)
             else:
+                #Make robot go
                 px.forward(40)
-        else:
-            #Make robot go
-            px.forward(40)
-            self.count = 0
+                self.count = 0
+        except:
+            pass
         
 
 # if __name__=='__main__':
