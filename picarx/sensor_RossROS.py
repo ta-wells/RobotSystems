@@ -210,7 +210,7 @@ class Ultrasonic_Controller():
         else:
             #Make robot go
             px.forward(40)
-            self,count = 0
+            self.count = 0
         
 
 # if __name__=='__main__':
