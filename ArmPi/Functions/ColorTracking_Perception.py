@@ -308,6 +308,7 @@ class Color_Perception():
         self.start_count_t1 = True
         self.start_pick_up = False
         self.color_list = []
+        self.last_x, self.last_y = 0, 0
         #List of variables to put into buses: start_pick_up,action_finish
 
     def start(self):
