@@ -391,7 +391,7 @@ if __name__ == '__main__':
             color.resize_image()
             color.gaussianBlur()
             color.LAB_convert()
-            color.image_contours(start_pick_up)
+            color.image_contours(start_pick_up,__target_color)
             color.get_area_location()
             start_pick_up = color.CUMULATIVE_JUDGEMENT()          
             cv2.imshow('Frame', frame)
