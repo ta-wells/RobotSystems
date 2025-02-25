@@ -341,11 +341,11 @@ class Color_Perception():
 
     def resize_image(self):
         img_h, img_w = self.img_copy.shape[:2]
-        cv2.line(img, (0, int(img_h / 2)), (img_w, int(img_h / 2)), (0, 0, 200), 1)
-        cv2.line(img, (int(img_w / 2), 0), (int(img_w / 2), img_h), (0, 0, 200), 1)
+        cv2.line(self.img_copy, (0, int(img_h / 2)), (img_w, int(img_h / 2)), (0, 0, 200), 1)
+        cv2.line(self.img_copy, (int(img_w / 2), 0), (int(img_w / 2), img_h), (0, 0, 200), 1)
         #If not isrunning, do nothing
         if not self.isrunning:
-            return img
+            return self.img_copy
         self.frame_resize = cv2.resize(self.img_copy, size, interpolation=cv2.INTER_NEAREST)
     
     
