@@ -307,6 +307,7 @@ class Color_Perception():
         self.center_list = []
         self.start_count_t1 = True
         self.start_pick_up = False
+        self.color_list = []
         #List of variables to put into buses: start_pick_up,action_finish
 
     def start(self):
@@ -326,6 +327,7 @@ class Color_Perception():
         self.track = False
         selfget_roi = False
         self.center_list = []
+        self.color_list = []
         #first_move = True
         #__target_color = ()
         #detect_color = 'None'
@@ -359,6 +361,9 @@ class Color_Perception():
             self.frame_gb = getMaskROI(self.frame_gb, roi, size)   #No idea where this function comes from but oh well 
     
         self.frame_lab = cv2.cvtColor(self.frame_gb, cv2.COLOR_BGR2LAB)  # Convert image to LAB space
+        self.color_area_max = None
+        self.max_area = 0
+        self.areaMaxContour_max = 0
 
     
     def image_contours(self,start_pick_up,__target_color):
@@ -372,6 +377,11 @@ class Color_Perception():
                     closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, np.ones((6, 6), np.uint8))  # closed operation
                     contours = cv2.findContours(closed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)[-2]  # Find the contours
                     self.areaMaxContour, self.area_max = getAreaMaxContour(contours)  # Get max area contour
+                    if self.areaMaxContour is not None:
+                        if self.area_max > self.max_area: #找最大面积
+                            self.max_area = self.area_max
+                            self.color_area_max = i
+                            self.areaMaxContour_max = self.areaMaxContour
 
 
     def get_area_location(self):
@@ -386,19 +396,29 @@ class Color_Perception():
             self.world_x, self.world_y = convertCoordinate(img_centerx, img_centery, size) #Convert to real world coordinates
             
             
-            cv2.drawContours(img, [box], -1, range_rgb[detect_color], 2)
-            cv2.putText(img, '(' + str(self.world_x) + ',' + str(self.world_y) + ')', (min(box[0, 0], box[2, 0]), box[2, 1] - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, range_rgb[detect_color], 1) #Draw center point
+            cv2.drawContours(img, [box], -1, range_rgb[self.color_area_max], 2)
+            cv2.putText(img, '(' + str(world_x) + ',' + str(world_y) + ')', (min(box[0, 0], box[2, 0]), box[2, 1] - 10),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, range_rgb[self.color_area_max], 1) #Draw center point
             self.distance = math.sqrt(pow(self.world_x - self.last_x, 2) + pow(self.world_y - self.last_y, 2)) #Compare distance to last coordinates to decided whether or not to move
             self.last_x, self.last_y = self.world_x, self.world_y
             track = True
+            if not start_pick_up:
+                if self.color_area_max == 'red':  #红色最大
+                    color = 1
+                elif self.color_area_max == 'green':  #绿色最大
+                    color = 2
+                elif self.color_area_max == 'blue':  #蓝色最大
+                    color = 3
+                else:
+                    color = 0
+                self.color_list.append(color)
         else:
             track = False
         return track
     
     def CUMULATIVE_JUDGEMENT(self):
         if self.area_max>2500:
-            if self.distance < 0.3:
+            if self.distance < 0.5:
                 self.center_list.extend((world_x, world_y))
                 self.count += 1
                 if self.start_count_t1:
@@ -416,7 +436,30 @@ class Color_Perception():
                     self.start_count_t1 = True
                     self.count = 0
                     self.center_list = []
-            return self.start_pick_up #Have to return this for now?
+
+                if len(color_list) == 3:  #多次判断
+                    # 取平均值
+                    color = int(round(np.mean(np.array(color_list))))
+                    color_list = []
+                    if color == 1:
+                        detect_color = 'red'
+                        draw_color = range_rgb["red"]
+                    elif color == 2:
+                        detect_color = 'green'
+                        draw_color = range_rgb["green"]
+                    elif color == 3:
+                        detect_color = 'blue'
+                        draw_color = range_rgb["blue"]
+                    else:
+                        detect_color = 'None'
+                        draw_color = range_rgb["black"]
+        else:
+            if not start_pick_up:
+                draw_color = (0, 0, 0)
+                detect_color = "None"
+            
+        cv2.putText(img, "Color: " + detect_color, (10, img.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, draw_color, 2)
+        return self.start_pick_up #Have to return this for now?
 
 if __name__ == '__main__':
     init()
