@@ -458,7 +458,7 @@ class Color_Perception():
                 draw_color = (0, 0, 0)
                 detect_color = "None"
             
-        cv2.putText(img, "Color: " + detect_color, (10, img.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, draw_color, 2)
+        cv2.putText(self.img_copy, "Color: " + detect_color, (10, self.img_copy.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, draw_color, 2)
         return self.start_pick_up #Have to return this for now?
 
 if __name__ == '__main__':
