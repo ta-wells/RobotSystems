@@ -361,7 +361,7 @@ class Color_Perception():
         self.frame_lab = cv2.cvtColor(self.frame_gb, cv2.COLOR_BGR2LAB)  # Convert image to LAB space
 
     
-    def image_contours(self,start_pick_up):
+    def image_contours(self,start_pick_up,__target_color):
         self.start_pick_up = start_pick_up
         if not self.start_pick_up: #If we are no picking up an object
             for i in color_range: #No idea where this variables comes from
