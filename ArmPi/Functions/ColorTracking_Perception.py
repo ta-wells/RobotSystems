@@ -438,37 +438,37 @@ class Color_Perception():
                     if self.start_count_t1:
                         self.start_count_t1 = False
                         self.t1 = time.time()
-                        if time.time() - self.t1 > 1:
-                            rotation_angle = rect[2] #Need to return this
-                            self.start_count_t1 = True
-                            self.world_X, self.world_Y = np.mean(np.array(self.center_list).reshape(self.count, 2), axis=0)
-                            self.count = 0
-                            self.center_list = []
-                            self.start_pick_up = True
-                            logging.info("Hoi")
-                    else:
-                        self.t1 = time.time()
+                    if time.time() - self.t1 > 1:
+                        rotation_angle = rect[2] #Need to return this
                         self.start_count_t1 = True
+                        self.world_X, self.world_Y = np.mean(np.array(self.center_list).reshape(self.count, 2), axis=0)
                         self.count = 0
                         self.center_list = []
+                        self.start_pick_up = True
+                        logging.info("Hoi")
+                else:
+                    self.t1 = time.time()
+                    self.start_count_t1 = True
+                    self.count = 0
+                    self.center_list = []
 
-                    if len(self.color_list) == 3:  #多次判断
-                        # 取平均值
-                        color = int(round(np.mean(np.array(self.color_list))))
-                        #logging.info(color)
-                        self.color_list = []
-                        if color == 1:
-                            self.detect_color = 'red'
-                            self.draw_color = range_rgb["red"]
-                        elif color == 2:
-                            self.detect_color = 'green'
-                            self.draw_color = range_rgb["green"]
-                        elif color == 3:
-                            self.detect_color = 'blue'
-                            self.draw_color = range_rgb["blue"]
-                        else:
-                            self.detect_color = 'None'
-                            self.draw_color = range_rgb["black"]
+                if len(self.color_list) == 3:  #多次判断
+                    # 取平均值
+                    color = int(round(np.mean(np.array(self.color_list))))
+                    #logging.info(color)
+                    self.color_list = []
+                    if color == 1:
+                        self.detect_color = 'red'
+                        self.draw_color = range_rgb["red"]
+                    elif color == 2:
+                        self.detect_color = 'green'
+                        self.draw_color = range_rgb["green"]
+                    elif color == 3:
+                        self.detect_color = 'blue'
+                        self.draw_color = range_rgb["blue"]
+                    else:
+                        self.detect_color = 'None'
+                        self.draw_color = range_rgb["black"]
             else:
                 
                 self.draw_color = (0, 0, 0)
