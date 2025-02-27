@@ -328,7 +328,7 @@ class Color_Perception():
         self.count = 0
         self.stop = False
         self.track = False
-        selfget_roi = False
+        self.get_roi = False
         self.center_list = []
         self.color_list = []
         #first_move = True
@@ -361,7 +361,7 @@ class Color_Perception():
     def LAB_convert(self):
         if self.get_roi and not start_pick_up:
             self.get_roi = False
-            self.frame_gb = getMaskROI(self.frame_gb, roi, size)   #No idea where this function comes from but oh well 
+            self.frame_gb = getMaskROI(self.frame_gb, self.roi, size)   #No idea where this function comes from but oh well 
     
         self.frame_lab = cv2.cvtColor(self.frame_gb, cv2.COLOR_BGR2LAB)  # Convert image to LAB space
         self.color_area_max = None
@@ -400,7 +400,7 @@ class Color_Perception():
                 rect = cv2.minAreaRect(self.areaMaxContour_max)
                 box = np.int0(cv2.boxPoints(rect))
 
-                roi = getROI(box) #get roi area
+                self.roi = getROI(box) #get roi area
                 self.get_roi = True
 
                 img_centerx, img_centery = getCenter(rect, roi, size, square_length)  # Get the center coordinates of the wooden block
