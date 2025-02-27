@@ -309,6 +309,7 @@ class Color_Perception():
         self.start_pick_up = False
         self.color_list = []
         self.last_x, self.last_y = 0, 0
+        self.draw_color = range_rgb["black"]
         #List of variables to put into buses: start_pick_up,action_finish
 
     def start(self):
@@ -444,22 +445,22 @@ class Color_Perception():
                     color_list = []
                     if color == 1:
                         detect_color = 'red'
-                        draw_color = range_rgb["red"]
+                        self.draw_color = range_rgb["red"]
                     elif color == 2:
                         detect_color = 'green'
-                        draw_color = range_rgb["green"]
+                        self.draw_color = range_rgb["green"]
                     elif color == 3:
                         detect_color = 'blue'
-                        draw_color = range_rgb["blue"]
+                        self.draw_color = range_rgb["blue"]
                     else:
                         detect_color = 'None'
-                        draw_color = range_rgb["black"]
+                        self.draw_color = range_rgb["black"]
         else:
             if not start_pick_up:
-                draw_color = (0, 0, 0)
+                self.draw_color = (0, 0, 0)
                 detect_color = "None"
             
-        cv2.putText(self.img_copy, "Color: " + detect_color, (10, self.img_copy.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, draw_color, 2)
+        cv2.putText(self.img_copy, "Color: " + detect_color, (10, self.img_copy.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, self.draw_color, 2)
         return self.start_pick_up #Have to return this for now?
 
 if __name__ == '__main__':
