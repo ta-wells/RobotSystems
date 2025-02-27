@@ -401,7 +401,7 @@ class Color_Perception():
                 box = np.int0(cv2.boxPoints(rect))
 
                 roi = getROI(box) #get roi area
-                get_roi = True
+                self.get_roi = True
 
                 img_centerx, img_centery = getCenter(rect, roi, size, square_length)  # Get the center coordinates of the wooden block
                 self.world_x, self.world_y = convertCoordinate(img_centerx, img_centery, size) #Convert to real world coordinates
