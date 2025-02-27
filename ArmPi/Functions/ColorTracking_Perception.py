@@ -423,6 +423,7 @@ class Color_Perception():
                     else:
                         color = 0
                     self.color_list.append(color)
+                    logging.info(color)
             else:
                 track = False
             return track
