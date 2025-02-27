@@ -388,7 +388,7 @@ class Color_Perception():
 
 
     def get_area_location(self):
-        if self.area_max > 2500:  # If area over a threshold, then found the max area
+        if self.max_area > 2500:  # If area over a threshold, then found the max area
             rect = cv2.minAreaRect(self.areaMaxContour)
             box = np.int0(cv2.boxPoints(rect))
 
