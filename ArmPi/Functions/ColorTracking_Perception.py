@@ -191,7 +191,7 @@ def move():
             if first_move and start_pick_up: # When object is first detected               
                 action_finish = False
                 set_rgb(detect_color)
-                setBuzzer(0.1)               
+                #setBuzzer(0.1)               
                 result = AK.setPitchRangeMoving((world_X, world_Y - 2, 5), -90, -90, 0) # I have no idea, but set kinematics?
                 if result == False:
                     unreachable = True
