@@ -397,7 +397,7 @@ class Color_Perception():
     def get_area_location(self):
         if not self.start_pick_up: #If we are no picking up an object    
             if self.max_area > 2500:  # If area over a threshold, then found the max area
-                rect = cv2.minAreaRect(self.areaMaxContour)
+                rect = cv2.minAreaRect(self.areaMaxContour_max)
                 box = np.int0(cv2.boxPoints(rect))
 
                 roi = getROI(box) #get roi area
