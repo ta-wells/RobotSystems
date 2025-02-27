@@ -440,10 +440,10 @@ class Color_Perception():
                     self.count = 0
                     self.center_list = []
 
-                if len(color_list) == 3:  #多次判断
+                if len(self.color_list) == 3:  #多次判断
                     # 取平均值
-                    color = int(round(np.mean(np.array(color_list))))
-                    color_list = []
+                    color = int(round(np.mean(np.array(self.color_list))))
+                    self.color_list = []
                     if color == 1:
                         detect_color = 'red'
                         self.draw_color = range_rgb["red"]
