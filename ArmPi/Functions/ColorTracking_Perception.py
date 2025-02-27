@@ -370,8 +370,8 @@ class Color_Perception():
         self.areaMaxContour_max = 0
 
     
-    def image_contours(self,start_pick_up,__target_color):
-        self.start_pick_up = start_pick_up
+    def image_contours(self,__target_color):
+        
         if not self.start_pick_up: #If we are no picking up an object
             for i in color_range: #No idea where this variables comes from
                 if i in __target_color:
