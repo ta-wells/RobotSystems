@@ -388,81 +388,83 @@ class Color_Perception():
 
 
     def get_area_location(self):
-        if self.max_area > 2500:  # If area over a threshold, then found the max area
-            rect = cv2.minAreaRect(self.areaMaxContour)
-            box = np.int0(cv2.boxPoints(rect))
+        if not self.start_pick_up: #If we are no picking up an object    
+            if self.max_area > 2500:  # If area over a threshold, then found the max area
+                rect = cv2.minAreaRect(self.areaMaxContour)
+                box = np.int0(cv2.boxPoints(rect))
 
-            roi = getROI(box) #get roi area
-            get_roi = True
+                roi = getROI(box) #get roi area
+                get_roi = True
 
-            img_centerx, img_centery = getCenter(rect, roi, size, square_length)  # Get the center coordinates of the wooden block
-            self.world_x, self.world_y = convertCoordinate(img_centerx, img_centery, size) #Convert to real world coordinates
-            
-            
-            cv2.drawContours(self.img_copy, [box], -1, range_rgb[self.color_area_max], 2)
-            cv2.putText(self.img_copy, '(' + str(world_x) + ',' + str(world_y) + ')', (min(box[0, 0], box[2, 0]), box[2, 1] - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, range_rgb[self.color_area_max], 1) #Draw center point
-            self.distance = math.sqrt(pow(self.world_x - self.last_x, 2) + pow(self.world_y - self.last_y, 2)) #Compare distance to last coordinates to decided whether or not to move
-            self.last_x, self.last_y = self.world_x, self.world_y
-            track = True
-            if not start_pick_up:
-                if self.color_area_max == 'red':  #红色最大
-                    color = 1
-                elif self.color_area_max == 'green':  #绿色最大
-                    color = 2
-                elif self.color_area_max == 'blue':  #蓝色最大
-                    color = 3
-                else:
-                    color = 0
-                self.color_list.append(color)
-        else:
-            track = False
-        return track
+                img_centerx, img_centery = getCenter(rect, roi, size, square_length)  # Get the center coordinates of the wooden block
+                self.world_x, self.world_y = convertCoordinate(img_centerx, img_centery, size) #Convert to real world coordinates
+                
+                
+                cv2.drawContours(self.img_copy, [box], -1, range_rgb[self.color_area_max], 2)
+                cv2.putText(self.img_copy, '(' + str(world_x) + ',' + str(world_y) + ')', (min(box[0, 0], box[2, 0]), box[2, 1] - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, range_rgb[self.color_area_max], 1) #Draw center point
+                self.distance = math.sqrt(pow(self.world_x - self.last_x, 2) + pow(self.world_y - self.last_y, 2)) #Compare distance to last coordinates to decided whether or not to move
+                self.last_x, self.last_y = self.world_x, self.world_y
+                track = True
+                if not start_pick_up:
+                    if self.color_area_max == 'red':  #红色最大
+                        color = 1
+                    elif self.color_area_max == 'green':  #绿色最大
+                        color = 2
+                    elif self.color_area_max == 'blue':  #蓝色最大
+                        color = 3
+                    else:
+                        color = 0
+                    self.color_list.append(color)
+            else:
+                track = False
+            return track
     
     def CUMULATIVE_JUDGEMENT(self,detect_color):
-        if self.max_area>2500:
-            if self.distance < 0.5:
-                self.center_list.extend((world_x, world_y))
-                self.count += 1
-                if self.start_count_t1:
-                    self.start_count_t1 = False
-                    t1 = time.time()
-                    if time.time() - t1 > 1.5:
-                        rotation_angle = rect[2] #Need to return this
+        if not self.start_pick_up: #If we are no picking up an object        
+            if self.max_area>2500:
+                if self.distance < 0.5:
+                    self.center_list.extend((world_x, world_y))
+                    self.count += 1
+                    if self.start_count_t1:
+                        self.start_count_t1 = False
+                        t1 = time.time()
+                        if time.time() - t1 > 1.5:
+                            rotation_angle = rect[2] #Need to return this
+                            self.start_count_t1 = True
+                            self.world_X, self.world_Y = np.mean(np.array(self.center_list).reshape(self.count, 2), axis=0)
+                            self.count = 0
+                            self.center_list = []
+                            self.start_pick_up = True
+                    else:
+                        t1 = time.time()
                         self.start_count_t1 = True
-                        self.world_X, self.world_Y = np.mean(np.array(self.center_list).reshape(self.count, 2), axis=0)
                         self.count = 0
                         self.center_list = []
-                        self.start_pick_up = True
-                else:
-                    t1 = time.time()
-                    self.start_count_t1 = True
-                    self.count = 0
-                    self.center_list = []
 
-                if len(self.color_list) == 3:  #多次判断
-                    # 取平均值
-                    color = int(round(np.mean(np.array(self.color_list))))
-                    self.color_list = []
-                    if color == 1:
-                        detect_color = 'red'
-                        self.draw_color = range_rgb["red"]
-                    elif color == 2:
-                        detect_color = 'green'
-                        self.draw_color = range_rgb["green"]
-                    elif color == 3:
-                        detect_color = 'blue'
-                        self.draw_color = range_rgb["blue"]
-                    else:
-                        detect_color = 'None'
-                        self.draw_color = range_rgb["black"]
-        else:
-            if not start_pick_up:
-                self.draw_color = (0, 0, 0)
-                detect_color = "None"
-            
-        cv2.putText(self.img_copy, "Color: " + detect_color, (10, self.img_copy.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, self.draw_color, 2)
-        return self.start_pick_up #Have to return this for now?
+                    if len(self.color_list) == 3:  #多次判断
+                        # 取平均值
+                        color = int(round(np.mean(np.array(self.color_list))))
+                        self.color_list = []
+                        if color == 1:
+                            detect_color = 'red'
+                            self.draw_color = range_rgb["red"]
+                        elif color == 2:
+                            detect_color = 'green'
+                            self.draw_color = range_rgb["green"]
+                        elif color == 3:
+                            detect_color = 'blue'
+                            self.draw_color = range_rgb["blue"]
+                        else:
+                            detect_color = 'None'
+                            self.draw_color = range_rgb["black"]
+            else:
+                if not start_pick_up:
+                    self.draw_color = (0, 0, 0)
+                    detect_color = "None"
+                
+            cv2.putText(self.img_copy, "Color: " + detect_color, (10, self.img_copy.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, self.draw_color, 2)
+            return self.start_pick_up #Have to return this for now?
 
 if __name__ == '__main__':
     init()
