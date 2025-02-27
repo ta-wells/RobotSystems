@@ -408,7 +408,7 @@ class Color_Perception():
                 
                 
                 cv2.drawContours(self.img_copy, [box], -1, range_rgb[self.color_area_max], 2)
-                cv2.putText(self.img_copy, '(' + str(world_x) + ',' + str(world_y) + ')', (min(box[0, 0], box[2, 0]), box[2, 1] - 10),
+                cv2.putText(self.img_copy, '(' + str(self.world_x) + ',' + str(self.world_y) + ')', (min(box[0, 0], box[2, 0]), box[2, 1] - 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, range_rgb[self.color_area_max], 1) #Draw center point
                 self.distance = math.sqrt(pow(self.world_x - self.last_x, 2) + pow(self.world_y - self.last_y, 2)) #Compare distance to last coordinates to decided whether or not to move
                 self.last_x, self.last_y = self.world_x, self.world_y
