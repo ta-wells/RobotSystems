@@ -445,6 +445,7 @@ class Color_Perception():
                             self.count = 0
                             self.center_list = []
                             self.start_pick_up = True
+                            logging.info("Hoi")
                     else:
                         t1 = time.time()
                         self.start_count_t1 = True
