@@ -381,7 +381,7 @@ if __name__ == '__main__':
     my_camera.camera_open()
     color = Color_Perception()
     color.start()
-    start_pick_up = False
+    #start_pick_up = False
     while True:
         img = my_camera.frame
         if img is not None:
