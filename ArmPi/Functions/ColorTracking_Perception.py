@@ -420,7 +420,7 @@ class Color_Perception():
         return track
     
     def CUMULATIVE_JUDGEMENT(self,detect_color):
-        if self.area_max>2500:
+        if self.max_area>2500:
             if self.distance < 0.5:
                 self.center_list.extend((world_x, world_y))
                 self.count += 1
