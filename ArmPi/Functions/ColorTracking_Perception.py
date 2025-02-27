@@ -423,7 +423,7 @@ class Color_Perception():
                     else:
                         color = 0
                     self.color_list.append(color)
-                    logging.info(color)
+                    #logging.info(color)
             else:
                 track = False
             return track
@@ -453,6 +453,7 @@ class Color_Perception():
                     if len(self.color_list) == 3:  #多次判断
                         # 取平均值
                         color = int(round(np.mean(np.array(self.color_list))))
+                        logging.info(color)
                         self.color_list = []
                         if color == 1:
                             detect_color = 'red'
