@@ -305,6 +305,7 @@ class Color_Perception():
         logging.info("Initializing Perception")
         self.get_roi = False #Need to default to false I think
         self.center_list = []
+        self.count = 0
         self.start_count_t1 = True
         self.start_pick_up = False
         self.color_list = []
