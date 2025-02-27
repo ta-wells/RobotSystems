@@ -477,7 +477,7 @@ class Color_Perception():
             logging.info(self.detect_color)  
             logging.info(self.start_pick_up)  
             cv2.putText(self.img_copy, "Color: " + self.detect_color, (10, self.img_copy.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, self.draw_color, 2)
-            return detect_color,self.start_pick_up #Have to return this for now?
+            return self.detect_color,self.start_pick_up #Have to return this for now?
 
 if __name__ == '__main__':
     init()
