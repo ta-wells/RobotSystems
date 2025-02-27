@@ -166,7 +166,7 @@ def move():
                 #移到目标位置，高度6cm, 通过返回的结果判断是否能到达指定位置
                 #如果不给出运行时间参数，则自动计算，并通过结果返回
                 set_rgb(detect_color)
-                setBuzzer(0.1)
+                #setBuzzer(0.1)
                 result = AK.setPitchRangeMoving((world_X, world_Y, 7), -90, -90, 0)  
                 if result == False:
                     unreachable = True
