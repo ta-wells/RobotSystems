@@ -468,7 +468,7 @@ class Color_Perception():
                             detect_color = 'None'
                             self.draw_color = range_rgb["black"]
             else:
-                if not start_pick_up:
+                if not self.start_pick_up:
                     self.draw_color = (0, 0, 0)
                     detect_color = "None"
             logging.info(detect_color)    
