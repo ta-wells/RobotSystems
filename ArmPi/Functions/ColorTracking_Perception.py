@@ -433,12 +433,12 @@ class Color_Perception():
         if not self.start_pick_up: #If we are no picking up an object        
             if self.max_area>2500:
                 if self.distance < 0.5:
-                    self.center_list.extend((world_x, world_y))
+                    self.center_list.extend((self.world_x, self.world_y))
                     self.count += 1
                     if self.start_count_t1:
                         self.start_count_t1 = False
-                        t1 = time.time()
-                        if time.time() - t1 > 1.5:
+                        self.t1 = time.time()
+                        if time.time() - self.t1 > 1:
                             rotation_angle = rect[2] #Need to return this
                             self.start_count_t1 = True
                             self.world_X, self.world_Y = np.mean(np.array(self.center_list).reshape(self.count, 2), axis=0)
@@ -447,7 +447,7 @@ class Color_Perception():
                             self.start_pick_up = True
                             logging.info("Hoi")
                     else:
-                        t1 = time.time()
+                        self.t1 = time.time()
                         self.start_count_t1 = True
                         self.count = 0
                         self.center_list = []
