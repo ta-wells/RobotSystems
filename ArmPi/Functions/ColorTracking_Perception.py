@@ -359,7 +359,7 @@ class Color_Perception():
         
 
     def LAB_convert(self):
-        if self.get_roi and start_pick_up:
+        if self.get_roi and not start_pick_up:
             self.get_roi = False
             self.frame_gb = getMaskROI(self.frame_gb, roi, size)   #No idea where this function comes from but oh well 
     
