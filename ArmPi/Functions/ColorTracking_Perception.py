@@ -453,7 +453,7 @@ class Color_Perception():
                     if len(self.color_list) == 3:  #多次判断
                         # 取平均值
                         color = int(round(np.mean(np.array(self.color_list))))
-                        logging.info(color)
+                        #logging.info(color)
                         self.color_list = []
                         if color == 1:
                             detect_color = 'red'
@@ -471,7 +471,7 @@ class Color_Perception():
                 if not start_pick_up:
                     self.draw_color = (0, 0, 0)
                     detect_color = "None"
-                
+            logging.info(detect_color)    
             cv2.putText(self.img_copy, "Color: " + detect_color, (10, self.img_copy.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, self.draw_color, 2)
             return self.start_pick_up #Have to return this for now?
 
