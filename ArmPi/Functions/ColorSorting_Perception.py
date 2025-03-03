@@ -394,7 +394,7 @@ if __name__ == '__main__':
             color.LAB_convert()
             color.image_contours(__target_color)
             color.get_area_location()
-            detect_color, start_pick_up = color.CUMULATIVE_JUDGEMENT()          
+            detect_color, start_pick_up,world_X,world_Y,rotation_angle = color.CUMULATIVE_JUDGEMENT()          
             cv2.imshow('Frame', frame)
             key = cv2.waitKey(1)
             if key == 27:

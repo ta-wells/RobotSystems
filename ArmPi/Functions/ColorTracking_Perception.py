@@ -439,7 +439,7 @@ class Color_Perception():
                         self.start_count_t1 = False
                         self.t1 = time.time()
                     if time.time() - self.t1 > 1:
-                        rotation_angle = self.rect[2] #Need to return this
+                        self.rotation_angle = self.rect[2] #Need to return this
                         self.start_count_t1 = True
                         self.world_X, self.world_Y = np.mean(np.array(self.center_list).reshape(self.count, 2), axis=0)
                         self.count = 0
@@ -477,7 +477,10 @@ class Color_Perception():
         logging.info(self.detect_color)  
         logging.info(self.start_pick_up)  
         cv2.putText(self.img_copy, "Color: " + self.detect_color, (10, self.img_copy.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, self.draw_color, 2)
-        return self.detect_color,self.start_pick_up #Have to return this for now?
+        
+        
+        #Need to return worldx, worldy, and rotation angle for now, and get info on start pick up for later use
+        return self.detect_color,self.start_pick_up,self.world_X,self.world_Y,self.rotation_angle #Have to return this for now?
 
 if __name__ == '__main__':
     init()
