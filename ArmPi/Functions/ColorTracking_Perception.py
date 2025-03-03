@@ -432,7 +432,8 @@ class Color_Perception():
                 track = False
             return track
     
-    def CUMULATIVE_JUDGEMENT(self):
+    def CUMULATIVE_JUDGEMENT(self,start_pick_up):
+        self.start_pick_up = start_pick_up
         if not self.start_pick_up: #If we are no picking up an object        
             if self.max_area>2500:
                 if self.distance < 0.5:
