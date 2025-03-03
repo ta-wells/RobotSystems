@@ -312,6 +312,9 @@ class Color_Perception():
         self.last_x, self.last_y = 0, 0
         self.draw_color = range_rgb["black"]
         self.detect_color = "None"
+        self.world_X = 0
+        self.world_Y = 0
+        self.rotation_angle = 0
         #List of variables to put into buses: start_pick_up,action_finish
 
     def start(self):
