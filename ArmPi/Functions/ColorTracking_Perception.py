@@ -449,7 +449,7 @@ class Color_Perception():
                         self.count = 0
                         self.center_list = []
                         self.start_pick_up = True
-                        logging.info("Hoi")
+                        #logging.info("Hoi")
                 else:
                     self.t1 = time.time()
                     self.start_count_t1 = True
@@ -479,7 +479,8 @@ class Color_Perception():
                 self.detect_color = "None"
         
         logging.info(self.detect_color)  
-        logging.info(self.start_pick_up)  
+        logging.info(self.start_pick_up) 
+        logging.info(self.start_count_t1) 
         cv2.putText(self.img_copy, "Color: " + self.detect_color, (10, self.img_copy.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.65, self.draw_color, 2)
         
         
