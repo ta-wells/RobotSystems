@@ -362,7 +362,7 @@ class Color_Movement():
         }
 
         self.servo1 = 500
-        self.__isrunning = True
+        self.__isRunning = True
         self._stop = False
 
 
