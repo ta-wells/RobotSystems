@@ -363,6 +363,7 @@ class Color_Movement():
 
         self.servo1 = 500
         self.__isrunning = True
+        self._stop = False
 
 
 
@@ -445,7 +446,7 @@ class Color_Movement():
                 set_rgb(detect_color)
         else:
             if _stop:
-                _stop = False
+                self._stop = False
                 Board.setBusServoPulse(1, self.servo1 - 70, 300)
                 time.sleep(0.5)
                 Board.setBusServoPulse(2, 500, 500)
