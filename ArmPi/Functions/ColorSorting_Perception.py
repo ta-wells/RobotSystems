@@ -395,7 +395,7 @@ if __name__ == '__main__':
             color.image_contours(__target_color)
             color.get_area_location()
             detect_color, start_pick_up,world_X,world_Y,rotation_angle = color.CUMULATIVE_JUDGEMENT(start_pick_up)          
-            cv2.imshow('Frame', frame)
+            cv2.imshow('Frame', color.img_copy)
             key = cv2.waitKey(1)
             if key == 27:
                 break
