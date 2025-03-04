@@ -100,67 +100,6 @@ detect_color = 'None'
 action_finish = True
 start_pick_up = False
 start_count_t1 = True
-# Stuff that is reset every loop. Too many global variables
-def reset():
-    global count
-    global track
-    global _stop
-    global get_roi
-    global first_move
-    global center_list
-    global __isRunning
-    global detect_color
-    global action_finish
-    global start_pick_up
-    global __target_color
-    global start_count_t1
-    
-    count = 0
-    _stop = False
-    track = False
-    get_roi = False
-    center_list = []
-    first_move = True
-    __target_color = ()
-    detect_color = 'None'
-    action_finish = True
-    start_pick_up = False
-    start_count_t1 = True
-
-# Initialization, just calls the init function from ealier and prints something
-def init():
-    print("ColorTracking Init")
-    initMove()
-
-# Start color tracking by resetting and setting the running boolean
-def start():
-    global __isRunning
-    reset()
-    __isRunning = True
-    print("ColorTracking Start")
-
-# Stop color tracking
-def stop():
-    global _stop 
-    global __isRunning
-    _stop = True
-    __isRunning = False
-    print("ColorTracking Stop")
-
-# Exit the color tracking
-def exit():
-    global _stop
-    global __isRunning
-    _stop = True
-    __isRunning = False
-    print("ColorTracking Exit")
-
-rect = None
-size = (640, 480)
-rotation_angle = 0
-unreachable = False
-world_X, world_Y = 0, 0
-world_x, world_y = 0, 0
 
 
 class Color_Perception():
